@@ -440,38 +440,6 @@ export default function Dashboard() {
 									</CardContent>
 								</Card>
 							</div>
-							<div className=" w-full lg:w-1/3 md:w-1/2 sm:w-full xs:w-full p-5">
-								<Card x-chunk="dashboard-02-chunk-0">
-									<CardHeader className="p-2 pt-0 md:p-4">
-										<CardTitle>
-											Accounting
-										</CardTitle>
-										<CardDescription>
-											Add
-											New
-											WorkSpace
-											and
-											get
-											unlimited
-											access
-											to
-											our
-											support
-											team.
-										</CardDescription>
-									</CardHeader>
-									<CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-										<Button
-											size="sm"
-											className="w-full"
-										>
-											Go
-											To
-											WorkSpace
-										</Button>
-									</CardContent>
-								</Card>
-							</div>
 						</div>
 					</div>
 				</main>

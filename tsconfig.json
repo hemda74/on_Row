@@ -20,7 +20,8 @@
 		"next-env.d.ts",
 		"**/*.ts",
 		"**/*.tsx",
-		"pages/dashborad.tsx"
+		"pages/dashborad.tsx",
+		"pages/workspaces/bases/[base].js"
 	],
 	"exclude": ["node_modules"]
 }
