@@ -4,8 +4,56 @@ import imagebaackground from '../public/login-background-image.jpg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
-export default function Dashboard() {
+interface FormData {
+	email: string;
+	password: string;
+}
+const Dashboard: React.FC = () => {
+	const [formData, setFormData] = useState<FormData>({
+		email: '',
+		password: '',
+	});
+	const router = useRouter();
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = e.target;
+		setFormData((prevState) => ({
+			...prevState,
+			[name]: value,
+		}));
+	};
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		try {
+			const response = await fetch(
+				'https://api.onrowhq.com/api/auth/login',
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type':
+							'application/json',
+					},
+					body: JSON.stringify(formData),
+				}
+			);
+			const data = await response.json();
+			console.log('Response:', data);
+			if (response.status === 200) {
+				Cookies.set('token', data.token, {
+					expires: 1,
+				}); // Store token in cookie for 1 day
+				router.push('/workspaces');
+			}
+		} catch (error) {
+			console.error('Error:', error);
+		}
+	};
+
 	return (
 		<div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
 			<div className="hidden bg-muted lg:block">
@@ -17,73 +65,102 @@ export default function Dashboard() {
 					className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
 				/>
 			</div>
-			<div className="flex items-center justify-center py-12">
-				<div className="mx-auto grid w-[350px] gap-6">
+			<div className="flex items-center justify-center py-12 bg-gray-100 min-h-screen">
+				<div className="mx-auto bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
 					<div className="grid gap-2 text-center">
 						<h1 className="text-3xl font-bold">
 							Login
 						</h1>
-						<p className="text-balance text-muted-foreground">
+						<p className="text-gray-600">
 							Enter your email below
 							to login to your account
 						</p>
 					</div>
-					<div className="grid gap-4">
-						<div className="grid gap-2">
-							<Label htmlFor="email">
-								Email
-							</Label>
-							<Input
-								id="email"
-								type="email"
-								placeholder="m@example.com"
-								required
-							/>
-						</div>
-						<div className="grid gap-2">
-							<div className="flex items-center">
-								<Label htmlFor="password">
-									Password
-								</Label>
-								<Link
-									href="/forgot-password"
-									className="ml-auto inline-block text-sm underline"
+					<form
+						onSubmit={handleSubmit}
+						className="mt-4"
+					>
+						<div className="grid gap-4">
+							<div className="grid gap-2">
+								<label
+									htmlFor="email"
+									className="font-semibold"
 								>
-									Forgot
-									your
-									password?
-								</Link>
+									Email
+								</label>
+								<input
+									id="email"
+									type="email"
+									name="email"
+									placeholder="m@example.com"
+									value={
+										formData.email
+									}
+									onChange={
+										handleInputChange
+									}
+									required
+									className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+								/>
 							</div>
-							<Input
-								id="password"
-								type="password"
-								required
-							/>
+							<div className="grid gap-2">
+								<div className="flex items-center justify-between">
+									<label
+										htmlFor="password"
+										className="font-semibold"
+									>
+										Password
+									</label>
+									<a
+										href="/forgot-password"
+										className="text-sm "
+									>
+										Forgot
+										your
+										password?
+									</a>
+								</div>
+								<input
+									id="password"
+									type="password"
+									name="password"
+									value={
+										formData.password
+									}
+									onChange={
+										handleInputChange
+									}
+									required
+									className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+								/>
+							</div>
+							<Button
+								type="submit"
+								className="w-full "
+							>
+								Login
+							</Button>
+							<button
+								type="button"
+								className="w-full bg-gray-200 text-gray-700 rounded-md py-2 px-4 hover:bg-gray-300 transition duration-300 ease-in-out"
+							>
+								Login with
+								Google
+							</button>
 						</div>
-						<Button
-							type="submit"
-							className="w-full"
-						>
-							Login
-						</Button>
-						<Button
-							variant="outline"
-							className="w-full"
-						>
-							Login with Google
-						</Button>
-					</div>
+					</form>
 					<div className="mt-4 text-center text-sm">
-						Don&apos;t have an account?{' '}
-						<Link
+						Don't have an account?{' '}
+						<a
 							href="#"
-							className="underline"
+							className=""
 						>
 							Sign up
-						</Link>
+						</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	);
-}
+};
+export default Dashboard;
