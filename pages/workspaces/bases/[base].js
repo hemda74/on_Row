@@ -11,7 +11,7 @@ import {
 	ShoppingCart,
 	Users,
 } from 'lucide-react';
-
+import RowStackTable from '@/components/RowStackTable';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -40,48 +40,6 @@ import {
 	MenubarShortcut,
 	MenubarTrigger,
 } from '@/components/ui/menubar';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
-import Table from 'rowstack';
-
-const data = [
-	{
-		id: 0,
-		name: 'Uriel Russo',
-		email: 'dolor.vitae@icloud.ca',
-	},
-	{
-		id: 1,
-		name: 'Priscilla Whitehead',
-		email: 'egestas.aliquam@icloud.ca',
-	},
-	{
-		id: 2,
-		name: 'Mariam Christensen',
-		email: 'lectus@google.com',
-	},
-	{
-		id: 3,
-		name: 'Elizabeth Hoffman',
-		email: 'tellus.nunc@google.ca',
-	},
-	{
-		id: 4,
-		name: 'Zelda Hess',
-		email: 'phasellus.libero.mauris@icloud.ca',
-	},
-];
-
-const columns = [
-	{
-		id: 'name',
-		name: 'Name',
-	},
-	{
-		id: 'email',
-		name: 'Email',
-	},
-];
 
 export default function Dashboard() {
 	return (
@@ -311,31 +269,7 @@ export default function Dashboard() {
 					</DropdownMenu>
 				</header>
 				<main className="flex flex-1 flex-col ">
-					<Tabs defaultValue="all">
-						<div className="flex items-center">
-							<TabsList>
-								<TabsTrigger value="all">
-									All
-								</TabsTrigger>
-								<TabsTrigger value="active">
-									Active
-								</TabsTrigger>
-								<TabsTrigger value="draft">
-									Draft
-								</TabsTrigger>
-								<TabsTrigger
-									value="archived"
-									className="hidden sm:flex"
-								>
-									Archived
-								</TabsTrigger>
-							</TabsList>
-						</div>
-					</Tabs>
-					<Table
-						data={data}
-						columns={columns}
-					/>
+					<RowStackTable />
 				</main>
 			</div>
 		</div>

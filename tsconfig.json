@@ -21,7 +21,11 @@
 		"**/*.ts",
 		"**/*.tsx",
 		"pages/dashborad.tsx",
-		"pages/workspaces/bases/[base].js"
+		"pages/workspaces/bases/[base].js",
+		"components/Droppable.jsx",
+		"components/Draggable.jsx",
+		"pages/workspaces/bases/hello/hello.tsx",
+		"components/RowStackTable.تsx"
 	],
 	"exclude": ["node_modules"]
 }
