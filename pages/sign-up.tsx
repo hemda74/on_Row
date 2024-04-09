@@ -3,12 +3,12 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-
+import imagebaackground from '@/public/login-background-image.jpg';
 interface FormData {
 	name: '';
 	email: string;
 	password: string;
-	confirmPassword: string;
+	password_confirmation: string;
 }
 
 export default function Dashboard() {
@@ -16,7 +16,7 @@ export default function Dashboard() {
 		name: '',
 		email: '',
 		password: '',
-		confirmPassword: '',
+		password_confirmation: '',
 	});
 	const [error, setError] = useState<string>(''); // Specify type as string
 	const [success, setSuccess] = useState<boolean>(false);
@@ -30,23 +30,26 @@ export default function Dashboard() {
 		e.preventDefault();
 
 		// Check if passwords match
-		if (formData.password !== formData.confirmPassword) {
+		if (formData.password !== formData.password_confirmation) {
 			setError('Passwords do not match');
 			return;
 		}
 
 		try {
 			const response = await fetch(
-				'https://app.onrowhq.com/api/auth/register',
+				'https://api.onrowhq.com/api/auth/register',
 				{
 					method: 'POST',
 					headers: {
 						'Content-Type':
-							'application/json',
+							'multipart/form-data',
 					},
 					body: JSON.stringify({
+						name: formData.name,
 						email: formData.email,
 						password: formData.password,
+						password_confirmation:
+							formData.password_confirmation,
 					}),
 				}
 			);
@@ -71,7 +74,15 @@ export default function Dashboard() {
 
 	return (
 		<div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
-			{/* Your background image div */}
+			<div className="hidden bg-muted lg:block">
+				<Image
+					src={imagebaackground}
+					alt="Image"
+					width="1920"
+					height="1080"
+					className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+				/>
+			</div>
 			<div className="flex items-center justify-center py-12">
 				<div className="mx-auto grid w-[350px] gap-6">
 					<div className="grid gap-2 text-center">
@@ -88,7 +99,7 @@ export default function Dashboard() {
 						<div className="grid gap-4">
 							<div className="grid gap-2">
 								<Label htmlFor="name">
-									Name
+									Email
 								</Label>
 								<Input
 									id="name"
@@ -140,16 +151,16 @@ export default function Dashboard() {
 								/>
 							</div>
 							<div className="grid gap-2">
-								<Label htmlFor="confirmPassword">
+								<Label htmlFor="password_confirmation">
 									Confirm
 									Password
 								</Label>
 								<Input
-									id="confirmPassword"
+									id="password_confirmation"
 									type="password"
-									name="confirmPassword"
+									name="password_confirmation"
 									value={
-										formData.confirmPassword
+										formData.password_confirmation
 									}
 									onChange={
 										handleChange
@@ -173,6 +184,13 @@ export default function Dashboard() {
 								className="w-full"
 							>
 								SignUp
+							</Button>
+							<Button
+								variant="outline"
+								className="w-full"
+							>
+								SignUp with
+								Google
 							</Button>
 						</div>
 					</form>

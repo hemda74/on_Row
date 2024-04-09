@@ -67,7 +67,7 @@ export default function Dashboard() {
 							</span>
 						</Button>
 					</div>
-					<div className="flex-1">
+					<div className="flex-1 bg-white">
 						<nav className="grid items-start px-2 text-sm font-medium lg:px-4">
 							<Link
 								href="#"
