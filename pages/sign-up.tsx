@@ -4,6 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import imagebaackground from '@/public/login-background-image.jpg';
+import Cookies from 'js-cookie'; // Import Cookies library
+import { useRouter } from 'next/router';
+
 interface FormData {
 	name: '';
 	email: string;
@@ -18,6 +21,8 @@ export default function Dashboard() {
 		password: '',
 		password_confirmation: '',
 	});
+	const router = useRouter();
+
 	const [error, setError] = useState<string>(''); // Specify type as string
 	const [success, setSuccess] = useState<boolean>(false);
 
@@ -42,27 +47,26 @@ export default function Dashboard() {
 					method: 'POST',
 					headers: {
 						'Content-Type':
-							'multipart/form-data',
+							'application/json',
 					},
-					body: JSON.stringify({
-						name: formData.name,
-						email: formData.email,
-						password: formData.password,
-						password_confirmation:
-							formData.password_confirmation,
-					}),
+					body: JSON.stringify(formData),
 				}
 			);
-			if (!response.ok) {
-				const errorData = await response.json();
-				throw new Error(
-					errorData.message ||
-						'Something went wrong'
+			const data = await response.json();
+			console.log('Response:', data);
+			if (response.status === 200) {
+				Cookies.set('token', data.token, {
+					expires: 1000,
+				}); // Store token in cookie for 1000 day
+				setSuccess(true);
+				setError('');
+				router.push('/');
+			} else {
+				setSuccess(false);
+				setError(
+					data.message || 'Something went wrong'
 				);
 			}
-			setSuccess(true);
-			setError('');
-			// You may want to redirect the user or perform other actions upon successful registration
 		} catch (error) {
 			setError(
 				(error as Error).message ||
@@ -83,23 +87,27 @@ export default function Dashboard() {
 					className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
 				/>
 			</div>
-			<div className="flex items-center justify-center py-12">
-				<div className="mx-auto grid w-[350px] gap-6">
+			<div className="flex items-center justify-center py-12 bg-gray-100 min-h-screen">
+				<div className="mx-auto bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
 					<div className="grid gap-2 text-center">
 						<h1 className="text-3xl font-bold">
 							Signup
 						</h1>
-						<p className="text-balance text-muted-foreground">
+						<p className="text-gray-600">
 							Enter your email below
 							to sign up for a new
 							account
 						</p>
 					</div>
-					<form onSubmit={handleSubmit}>
+					<form
+						onSubmit={handleSubmit}
+						className="mt-4"
+					>
 						<div className="grid gap-4">
 							<div className="grid gap-2">
 								<Label htmlFor="name">
-									Email
+									Full
+									Name
 								</Label>
 								<Input
 									id="name"

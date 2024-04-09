@@ -1,166 +1,333 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import imagebaackground from '../public/login-background-image.jpg';
+import { withAuth } from './withAuth';
+import {
+	Bell,
+	CircleUser,
+	Home,
+	LineChart,
+	Menu,
+	Package,
+	Package2,
+	Search,
+	ShoppingCart,
+	Users,
+} from 'lucide-react';
+
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from '@/components/ui/card';
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import Cookies from 'js-cookie';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import WorkspaceCard from '@/components/WorkspaceCard';
 
-interface FormData {
-	email: string;
-	password: string;
-}
-const Dashboard: React.FC = () => {
-	const [formData, setFormData] = useState<FormData>({
-		email: '',
-		password: '',
-	});
-	const router = useRouter();
-
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-		setFormData((prevState) => ({
-			...prevState,
-			[name]: value,
-		}));
-	};
-
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		try {
-			const response = await fetch(
-				'https://api.onrowhq.com/api/auth/login',
-				{
-					method: 'POST',
-					headers: {
-						'Content-Type':
-							'application/json',
-					},
-					body: JSON.stringify(formData),
-				}
-			);
-			const data = await response.json();
-			console.log('Response:', data);
-			if (response.status === 200) {
-				Cookies.set('token', data.token, {
-					expires: 1,
-				}); // Store token in cookie for 1 day
-				router.push('/workspaces');
-			}
-		} catch (error) {
-			console.error('Error:', error);
-		}
-	};
-
+const Dashboard = () => {
+	const workspaceData = [
+		{
+			id: 1,
+			title: 'Workspace 1',
+			description:
+				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 1',
+		},
+		{
+			id: 2,
+			title: 'Workspace 2',
+			description:
+				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 2',
+		},
+		{
+			id: 3,
+			title: 'Workspace 3',
+			description:
+				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 3',
+		},
+		{
+			id: 4,
+			title: 'Workspace 4',
+			description:
+				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 4',
+		},
+	];
 	return (
-		<div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
-			<div className="hidden bg-muted lg:block">
-				<Image
-					src={imagebaackground}
-					alt="Image"
-					width="1920"
-					height="1080"
-					className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-				/>
-			</div>
-			<div className="flex items-center justify-center py-12 bg-gray-100 min-h-screen">
-				<div className="mx-auto bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
-					<div className="grid gap-2 text-center">
-						<h1 className="text-3xl font-bold">
-							Login
-						</h1>
-						<p className="text-gray-600">
-							Enter your email below
-							to login to your account
-						</p>
-					</div>
-					<form
-						onSubmit={handleSubmit}
-						className="mt-4"
-					>
-						<div className="grid gap-4">
-							<div className="grid gap-2">
-								<label
-									htmlFor="email"
-									className="font-semibold"
-								>
-									Email
-								</label>
-								<input
-									id="email"
-									type="email"
-									name="email"
-									placeholder="m@example.com"
-									value={
-										formData.email
-									}
-									onChange={
-										handleInputChange
-									}
-									required
-									className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-								/>
-							</div>
-							<div className="grid gap-2">
-								<div className="flex items-center justify-between">
-									<label
-										htmlFor="password"
-										className="font-semibold"
-									>
-										Password
-									</label>
-									<a
-										href="/forgot-password"
-										className="text-sm "
-									>
-										Forgot
-										your
-										password?
-									</a>
-								</div>
-								<input
-									id="password"
-									type="password"
-									name="password"
-									value={
-										formData.password
-									}
-									onChange={
-										handleInputChange
-									}
-									required
-									className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-								/>
-							</div>
-							<Button
-								type="submit"
-								className="w-full "
-							>
-								Login
-							</Button>
-							<button
-								type="button"
-								className="w-full bg-gray-200 text-gray-700 rounded-md py-2 px-4 hover:bg-gray-300 transition duration-300 ease-in-out"
-							>
-								Login with
-								Google
-							</button>
-						</div>
-					</form>
-					<div className="mt-4 text-center text-sm">
-						Don't have an account?{' '}
-						<a
-							href="#"
-							className=""
+		<div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+			<div className="hidden border-r bg-muted/40 md:block">
+				<div className="flex h-full max-h-screen flex-col gap-2">
+					<div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
+						<Link
+							href="/"
+							className="flex items-center gap-2 font-semibold"
 						>
-							Sign up
-						</a>
+							<Package2 className="h-6 w-6" />
+							<span className="">
+								onRow
+							</span>
+						</Link>
+						<Button
+							variant="outline"
+							size="icon"
+							className="ml-auto h-8 w-8"
+						>
+							<Bell className="h-4 w-4" />
+							<span className="sr-only">
+								Toggle Menu
+							</span>
+						</Button>
+					</div>
+					<div className="flex-1 bg-white">
+						<nav className="grid items-start px-2 text-sm font-medium lg:px-4">
+							<Link
+								href="#"
+								className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+							>
+								<Home className="h-4 w-4" />
+								Dashboard
+							</Link>
+							<Link
+								href="#"
+								className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+							>
+								<LineChart className="h-4 w-4" />{' '}
+								WorkSpaces
+								<Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
+									6
+								</Badge>
+							</Link>
+
+							<Link
+								href="#"
+								className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+							>
+								<Users className="h-4 w-4" />
+								Users
+							</Link>
+						</nav>
+					</div>
+					<div className="mt-auto p-4">
+						<Card x-chunk="dashboard-02-chunk-0">
+							<CardHeader className="p-2 pt-0 md:p-4">
+								<CardTitle>
+									Create
+									Workspace
+								</CardTitle>
+								<CardDescription>
+									Add New
+									WorkSpace
+									and get
+									unlimited
+									access
+									to our
+									support
+									team.
+								</CardDescription>
+							</CardHeader>
+							<CardContent className="p-2 pt-0 md:p-4 md:pt-0">
+								<Button
+									size="sm"
+									className="w-full"
+								>
+									Add New
+									WorkSpace
+								</Button>
+							</CardContent>
+						</Card>
 					</div>
 				</div>
+			</div>
+			<div className="flex flex-col">
+				<header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+					<Sheet>
+						<SheetTrigger asChild>
+							<Button
+								variant="outline"
+								size="icon"
+								className="shrink-0 md:hidden"
+							>
+								<Menu className="h-5 w-5" />
+								<span className="sr-only">
+									Toggle
+									navigation
+									menu
+								</span>
+							</Button>
+						</SheetTrigger>
+						<SheetContent
+							side="left"
+							className="flex flex-col"
+						>
+							<nav className="grid gap-2 text-lg font-medium">
+								<Link
+									href="#"
+									className="flex items-center gap-2 text-lg font-semibold"
+								>
+									<Package2 className="h-6 w-6" />
+									<span className="sr-only">
+										Add
+										New
+									</span>
+								</Link>
+								<Link
+									href="#"
+									className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+								>
+									<Home className="h-5 w-5" />
+									Dashboard
+								</Link>
+								<Link
+									href="#"
+									className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+								>
+									<ShoppingCart className="h-5 w-5" />
+									Orders
+									<Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
+										6
+									</Badge>
+								</Link>
+								<Link
+									href="#"
+									className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+								>
+									<Package className="h-5 w-5" />
+									Products
+								</Link>
+								<Link
+									href="#"
+									className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+								>
+									<Users className="h-5 w-5" />
+									Customers
+								</Link>
+								<Link
+									href="#"
+									className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+								>
+									<LineChart className="h-5 w-5" />
+									Analytics
+								</Link>
+							</nav>
+							<div className="mt-auto">
+								<Card>
+									<CardHeader>
+										<CardTitle>
+											Upgrade
+											to
+											Pro
+										</CardTitle>
+										<CardDescription>
+											Unlock
+											all
+											features
+											and
+											get
+											unlimited
+											access
+											to
+											our
+											support
+											team.
+										</CardDescription>
+									</CardHeader>
+									<CardContent>
+										<Button
+											size="sm"
+											className="w-full"
+										>
+											Upgrade
+										</Button>
+									</CardContent>
+								</Card>
+							</div>
+						</SheetContent>
+					</Sheet>
+					<div className="w-full flex-1 bg-white">
+						<form>
+							<div className="relative">
+								<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+								<Input
+									type="search"
+									placeholder="Search workspace..."
+									className="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
+								/>
+							</div>
+						</form>
+					</div>
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<Button
+								variant="secondary"
+								size="icon"
+								className="rounded-full"
+							>
+								<CircleUser className="h-5 w-5" />
+								<span className="sr-only">
+									Toggle
+									user
+									menu
+								</span>
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent align="end">
+							<DropdownMenuLabel>
+								My Account
+							</DropdownMenuLabel>
+							<DropdownMenuSeparator />
+							<DropdownMenuItem>
+								Settings
+							</DropdownMenuItem>
+							<DropdownMenuItem>
+								Support
+							</DropdownMenuItem>
+							<DropdownMenuSeparator />
+							<DropdownMenuItem>
+								Logout
+							</DropdownMenuItem>
+						</DropdownMenuContent>
+					</DropdownMenu>
+				</header>
+				<main className="flex flex-1 bg-white flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+					<div className="flex items-center">
+						<h1 className="text-lg font-semibold md:text-2xl">
+							Workspaces
+						</h1>
+					</div>
+					<div
+						className="flex flex-1 bg-white items-start justify-center rounded-lg border border-dashed shadow-sm"
+						x-chunk="dashboard-02-chunk-1"
+					>
+						<div className="flex flex-row flex-wrap items-start">
+							{/* Map over workspaceData array to render WorkspaceCard components */}
+							{workspaceData.map(
+								(workspace) => (
+									<WorkspaceCard
+										key={
+											workspace.id
+										}
+										title={
+											workspace.title
+										}
+										description={
+											workspace.description
+										}
+									/>
+								)
+							)}
+						</div>
+					</div>
+				</main>
 			</div>
 		</div>
 	);
 };
-export default Dashboard;
+export default withAuth(Dashboard);
