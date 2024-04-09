@@ -5,9 +5,7 @@ import { Droppable } from '@/components/Droppable';
 
 export default function Example() {
 	const [parent, setParent] = useState<string | null>(null);
-	const draggable = (
-		<Draggable id="draggable">Go ahead, drag me.</Draggable>
-	);
+	const draggable = <Draggable id="draggable">Hello There </Draggable>;
 
 	const handleDragEnd = ({ over }: DragEndEvent) => {
 		if (over) {

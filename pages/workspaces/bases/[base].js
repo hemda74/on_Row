@@ -67,7 +67,7 @@ export default function Dashboard() {
 							</span>
 						</Button>
 					</div>
-					<div className="flex-1 bg-white">
+					<div className="flex-1 bg-white ">
 						<nav className="grid items-start px-2 text-sm font-medium lg:px-4">
 							<Link
 								href="#"
@@ -133,11 +133,11 @@ export default function Dashboard() {
 							<CardHeader className="p-2 pt-0 md:p-4">
 								<CardTitle>
 									Add New
-									Base
+									Table
 								</CardTitle>
 								<CardDescription>
 									Add New
-									Base
+									Table
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="p-2 pt-0 md:p-4 md:pt-0">
@@ -146,7 +146,7 @@ export default function Dashboard() {
 									className="w-full"
 								>
 									Add New
-									Base
+									Table
 								</Button>
 							</CardContent>
 						</Card>
@@ -223,7 +223,7 @@ export default function Dashboard() {
 							</div>
 						</SheetContent>
 					</Sheet>
-					<div className="w-full flex-1">
+					<div className="w-full flex-1 bg-white ">
 						<form>
 							<div className="relative">
 								<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -268,7 +268,7 @@ export default function Dashboard() {
 						</DropdownMenuContent>
 					</DropdownMenu>
 				</header>
-				<main className="flex flex-1 flex-col ">
+				<main className="flex flex-1 bg-white  flex-col ">
 					<RowStackTable />
 				</main>
 			</div>

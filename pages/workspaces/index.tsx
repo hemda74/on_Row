@@ -31,8 +31,35 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import WorkspaceCard from '@/components/WorkspaceCard';
 
 export default function Dashboard() {
+	const workspaceData = [
+		{
+			id: 1,
+			title: 'Workspace 1',
+			description:
+				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 1',
+		},
+		{
+			id: 2,
+			title: 'Workspace 2',
+			description:
+				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 2',
+		},
+		{
+			id: 3,
+			title: 'Workspace 3',
+			description:
+				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 3',
+		},
+		{
+			id: 4,
+			title: 'Workspace 4',
+			description:
+				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 4',
+		},
+	];
 	return (
 		<div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
 			<div className="hidden border-r bg-muted/40 md:block">
@@ -58,7 +85,7 @@ export default function Dashboard() {
 							</span>
 						</Button>
 					</div>
-					<div className="flex-1">
+					<div className="flex-1 bg-white">
 						<nav className="grid items-start px-2 text-sm font-medium lg:px-4">
 							<Link
 								href="#"
@@ -223,7 +250,7 @@ export default function Dashboard() {
 							</div>
 						</SheetContent>
 					</Sheet>
-					<div className="w-full flex-1">
+					<div className="w-full flex-1 bg-white">
 						<form>
 							<div className="relative">
 								<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -268,178 +295,33 @@ export default function Dashboard() {
 						</DropdownMenuContent>
 					</DropdownMenu>
 				</header>
-				<main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+				<main className="flex flex-1 bg-white flex-col gap-4 p-4 lg:gap-6 lg:p-6">
 					<div className="flex items-center">
 						<h1 className="text-lg font-semibold md:text-2xl">
 							Workspaces
 						</h1>
 					</div>
 					<div
-						className="flex flex-1 items-start justify-center rounded-lg border border-dashed shadow-sm"
+						className="flex flex-1 bg-white items-start justify-center rounded-lg border border-dashed shadow-sm"
 						x-chunk="dashboard-02-chunk-1"
 					>
 						<div className="flex flex-row flex-wrap items-start">
-							<div className=" w-full lg:w-1/3 md:w-1/2 sm:w-full xs:w-full p-5">
-								<Card x-chunk="dashboard-02-chunk-0">
-									<CardHeader className="p-2 pt-0 md:p-4">
-										<CardTitle>
-											Call
-											Center
-										</CardTitle>
-										<CardDescription>
-											Add
-											New
-											WorkSpace
-											and
-											get
-											unlimited
-											access
-											to
-											our
-											support
-											team.
-										</CardDescription>
-									</CardHeader>
-									<CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-										<Button
-											size="sm"
-											className="w-full"
-										>
-											Go
-											To
-											WorkSpace
-										</Button>
-									</CardContent>
-								</Card>
-							</div>
-							<div className=" w-full lg:w-1/3 md:w-1/2 sm:w-full xs:w-full p-5">
-								<Card x-chunk="dashboard-02-chunk-0">
-									<CardHeader className="p-2 pt-0 md:p-4">
-										<CardTitle>
-											Hr
-										</CardTitle>
-										<CardDescription>
-											Add
-											New
-											WorkSpace
-											and
-											get
-											unlimited
-											access
-											to
-											our
-											support
-											team.
-										</CardDescription>
-									</CardHeader>
-									<CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-										<Button
-											size="sm"
-											className="w-full"
-										>
-											Go
-											To
-											WorkSpace
-										</Button>
-									</CardContent>
-								</Card>
-							</div>
-							<div className=" w-full lg:w-1/3 md:w-1/2 sm:w-full xs:w-full p-5">
-								<Card x-chunk="dashboard-02-chunk-0">
-									<CardHeader>
-										<CardTitle>
-											Development
-										</CardTitle>
-										<CardDescription>
-											Add
-											New
-											WorkSpace
-											and
-											get
-											unlimited
-											access
-											to
-											our
-											support
-											team.
-										</CardDescription>
-									</CardHeader>
-									<CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-										<Button
-											size="sm"
-											className="w-full"
-										>
-											Go
-											To
-											WorkSpace
-										</Button>
-									</CardContent>
-								</Card>
-							</div>
-							<div className=" w-full lg:w-1/3 md:w-1/2 sm:w-full xs:w-full p-5">
-								<Card x-chunk="dashboard-02-chunk-0">
-									<CardHeader className="p-2 pt-0 md:p-4">
-										<CardTitle>
-											Markting
-										</CardTitle>
-										<CardDescription>
-											Add
-											New
-											WorkSpace
-											and
-											get
-											unlimited
-											access
-											to
-											our
-											support
-											team.
-										</CardDescription>
-									</CardHeader>
-									<CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-										<Button
-											size="sm"
-											className="w-full"
-										>
-											Go
-											To
-											WorkSpace
-										</Button>
-									</CardContent>
-								</Card>
-							</div>
-							<div className=" w-full lg:w-1/3 md:w-1/2 sm:w-full xs:w-full p-5">
-								<Card x-chunk="dashboard-02-chunk-0">
-									<CardHeader className="p-2 pt-0 md:p-4">
-										<CardTitle>
-											Accounting
-										</CardTitle>
-										<CardDescription>
-											Add
-											New
-											WorkSpace
-											and
-											get
-											unlimited
-											access
-											to
-											our
-											support
-											team.
-										</CardDescription>
-									</CardHeader>
-									<CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-										<Button
-											size="sm"
-											className="w-full"
-										>
-											Go
-											To
-											WorkSpace
-										</Button>
-									</CardContent>
-								</Card>
-							</div>
+							{/* Map over workspaceData array to render WorkspaceCard components */}
+							{workspaceData.map(
+								(workspace) => (
+									<WorkspaceCard
+										key={
+											workspace.id
+										}
+										title={
+											workspace.title
+										}
+										description={
+											workspace.description
+										}
+									/>
+								)
+							)}
 						</div>
 					</div>
 				</main>
