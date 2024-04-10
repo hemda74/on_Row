@@ -10,21 +10,21 @@ import {
 } from '@/components/ui/card';
 
 interface WorkspaceCardProps {
-	title: string;
+	name: string;
 	description: string;
-	id: string;
+	id: number;
 }
 
 const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
-	title,
+	name,
 	description,
 	id,
 }) => {
 	return (
 		<div className=" w-full lg:w-1/3 md:w-1/2 sm:w-full xs:w-full p-5">
-			<Card x-chunk="dashboard-02-chunk-0">
+			<Card className="p-5">
 				<CardHeader className="p-2 pt-0 md:p-4">
-					<CardTitle>{title}</CardTitle>
+					<CardTitle>{name}</CardTitle>
 					<CardDescription>
 						{description}
 					</CardDescription>

@@ -2,8 +2,8 @@ import WorkspaceCard from '@/components/WorkspaceCard';
 import SideBarLg from '@/components/SideBarLg';
 import Header from '@/components/Header';
 interface Workspace {
-	id: string;
-	title: string;
+	id: number;
+	name: string;
 	description: string;
 }
 
@@ -14,26 +14,26 @@ interface WorkspaceArray {
 export default function Dashboard() {
 	const workspaceData: Workspace[] = [
 		{
-			id: '1',
-			title: 'Workspace 1',
+			id: 1,
+			name: 'Workspace 1',
 			description:
 				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 1',
 		},
 		{
-			id: '2',
-			title: 'Workspace 2',
+			id: 2,
+			name: 'Workspace 2',
 			description:
 				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 2',
 		},
 		{
-			id: '3',
-			title: 'Workspace 3',
+			id: 3,
+			name: 'Workspace 3',
 			description:
 				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 3',
 		},
 		{
-			id: '4',
-			title: 'Workspace 4',
+			id: 4,
+			name: 'Workspace 4',
 			description:
 				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 4',
 		},
@@ -61,8 +61,8 @@ export default function Dashboard() {
 										key={
 											workspace.id
 										}
-										title={
-											workspace.title
+										name={
+											workspace.name
 										}
 										description={
 											workspace.description

@@ -14,8 +14,8 @@ import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 // Define the interface for a workspace item
 interface Workspace {
-	id: string;
-	title: string;
+	id: number;
+	name: string;
 }
 
 // Define the interface for an array of workspace items
@@ -60,20 +60,12 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 							className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
 						>
 							<LineChart className="h-4 w-4" />{' '}
-							Bases
+							WorkSpaces
 							<Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
 								{
 									totalWorkspaces
 								}
 							</Badge>
-						</Link>
-
-						<Link
-							href="/members"
-							className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-						>
-							<Users className="h-4 w-4" />
-							Users
 						</Link>
 					</nav>
 				</div>
@@ -81,10 +73,11 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 					<Card x-chunk="dashboard-02-chunk-0">
 						<CardHeader className="p-2 pt-0 md:p-4">
 							<CardTitle>
-								New Base
+								Create Workspace
 							</CardTitle>
 							<CardDescription>
-								Add New Base and
+								Add New
+								WorkSpace and
 								get unlimited
 								access to our
 								support team.
@@ -95,7 +88,8 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 								size="sm"
 								className="w-full"
 							>
-								Add New Base
+								Add New
+								WorkSpace
 							</Button>
 						</CardContent>
 					</Card>

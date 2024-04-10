@@ -14,8 +14,8 @@ import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 // Define the interface for a workspace item
 interface Workspace {
-	id: string;
-	title: string;
+	id: number;
+	name: string;
 }
 
 // Define the interface for an array of workspace items

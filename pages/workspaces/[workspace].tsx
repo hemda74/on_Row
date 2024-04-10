@@ -67,9 +67,9 @@ export default function Dashboard() {
 		},
 		{
 			id: '4',
-			title: 'Workspace 4',
+			title: 'base 4',
 			description:
-				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 4',
+				'Description for base Description for base Description for base Description for base 4',
 		},
 	];
 	return (

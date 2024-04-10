@@ -73,14 +73,6 @@ const Header: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 								}
 							</Badge>
 						</Link>
-
-						<Link
-							href="/members"
-							className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-						>
-							<Users className="h-4 w-4" />
-							Users
-						</Link>
 					</nav>
 					<div className="mt-auto p-0">
 						<Card

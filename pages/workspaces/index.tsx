@@ -1,43 +1,53 @@
+import React, { useState, useEffect } from 'react';
 import WorkspaceCard from '@/components/WorkspaceCard';
-import SideBarLg from '@/components/SideBarLg';
-import Header from '@/components/Header';
+import SideBarLg from '@/components/SideBarLgHome';
+import Header from '@/components/HeaderHome';
+import Cookies from 'js-cookie';
+
 interface Workspace {
-	id: string;
-	title: string;
+	id: number;
+	name: string;
 	description: string;
 }
 
-// Define the interface for an array of workspace items
-interface WorkspaceArray {
-	workspaceData: Workspace[];
-}
 export default function Dashboard() {
-	const workspaceData: Workspace[] = [
-		{
-			id: '1',
-			title: 'Workspace 1',
-			description:
-				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 1',
-		},
-		{
-			id: '2',
-			title: 'Workspace 2',
-			description:
-				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 2',
-		},
-		{
-			id: '3',
-			title: 'Workspace 3',
-			description:
-				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 3',
-		},
-		{
-			id: '4',
-			title: 'Workspace 4',
-			description:
-				'Description for Workspace Description for Workspace Description for Workspace Description for Workspace 4',
-		},
-	];
+	const [workspaceData, setWorkspaceData] = useState<Workspace[]>([]);
+
+	useEffect(() => {
+		// Fetch data from the API when the component mounts
+		fetch('https://api.onrowhq.com/api/workspaces', {
+			headers: {
+				Authorization: `Bearer ${Cookies.get('token')}`, // Include token in Authorization header
+			},
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error(
+						'Failed to fetch workspace data'
+					);
+				}
+				return response.json();
+			})
+			.then((data) => {
+				console.log(data); // Log data here to check its structure
+				if (
+					data &&
+					data.data &&
+					Array.isArray(data.data.workspaces)
+				) {
+					setWorkspaceData(data.data.workspaces);
+				} else {
+					throw new Error('Invalid data format');
+				}
+			})
+			.catch((error) => {
+				console.error(
+					'Error fetching workspace data:',
+					error
+				);
+			});
+	}, []);
+
 	return (
 		<div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
 			<SideBarLg workspaceData={workspaceData} />
@@ -61,8 +71,8 @@ export default function Dashboard() {
 										key={
 											workspace.id
 										}
-										title={
-											workspace.title
+										name={
+											workspace.name
 										}
 										description={
 											workspace.description
