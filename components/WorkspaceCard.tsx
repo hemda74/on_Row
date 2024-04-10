@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
 	Card,
@@ -13,11 +12,13 @@ import {
 interface WorkspaceCardProps {
 	title: string;
 	description: string;
+	id: string;
 }
 
 const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
 	title,
 	description,
+	id,
 }) => {
 	return (
 		<div className=" w-full lg:w-1/3 md:w-1/2 sm:w-full xs:w-full p-5">
@@ -29,12 +30,14 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-					<Button
-						size="sm"
-						className="w-full"
-					>
-						Go To WorkSpace
-					</Button>
+					<Link href={`/workspaces/${id}`}>
+						<Button
+							size="sm"
+							className="w-full"
+						>
+							Go To WorkSpace
+						</Button>
+					</Link>
 				</CardContent>
 			</Card>
 		</div>
