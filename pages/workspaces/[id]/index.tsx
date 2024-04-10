@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import BaseCard from '@/components/BaseCard';
 import SideBarLg from '@/components/SideBarLgBase';
-import Header from '@/components/Header';
+import Header from '@/components/HeaderBase';
 import Cookies from 'js-cookie';
 
 interface Workspace {
@@ -29,6 +29,7 @@ export default function WorkspaceDetail() {
 
 	const router = useRouter();
 	const { id } = router.query;
+
 	useEffect(() => {
 		// Fetch data from the API when the component mounts
 		fetch(`https://api.onrowhq.com/api/workspaces`, {
@@ -100,7 +101,10 @@ export default function WorkspaceDetail() {
 	return (
 		<>
 			<div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-				<SideBarLg workspaceData={baseData} />
+				<SideBarLg
+					workspaceData={baseData}
+					id={id}
+				/>
 				<div className="flex flex-col">
 					<Header workspaceData={baseData} />
 
