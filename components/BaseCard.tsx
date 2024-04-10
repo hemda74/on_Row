@@ -24,12 +24,12 @@ import Link from 'next/link';
 import { toast } from 'react-hot-toast';
 
 interface BaseCardProps {
-	title: string;
+	name: string;
 	description: string;
-	id: string;
+	id: number;
 }
 
-const BaseCard: React.FC<BaseCardProps> = ({ title, description, id }) => {
+const BaseCard: React.FC<BaseCardProps> = ({ name, description, id }) => {
 	const [email, setEmail] = useState('');
 	const [isValidEmail, setIsValidEmail] = useState(true);
 
@@ -55,10 +55,10 @@ const BaseCard: React.FC<BaseCardProps> = ({ title, description, id }) => {
 	};
 
 	return (
-		<div className=" w-full lg:w-1/4 md:w-1/2 sm:w-full xs:w-full p-5">
-			<Card x-chunk="dashboard-02-chunk-0">
+		<div className=" w-full lg:w-1/4 md:w-1/2 sm:w-full xs:w-full p-5 block">
+			<Card x-chunk="dashboard-02-chunk-0 ">
 				<CardHeader className="p-2 pt-0 md:p-4">
-					<CardTitle>{title}</CardTitle>
+					<CardTitle>{name}</CardTitle>
 					<CardDescription>
 						{description}
 					</CardDescription>

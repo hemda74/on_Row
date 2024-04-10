@@ -3,7 +3,6 @@ import WorkspaceCard from '@/components/WorkspaceCard';
 import SideBarLg from '@/components/SideBarLgHome';
 import Header from '@/components/HeaderHome';
 import Cookies from 'js-cookie';
-
 interface Workspace {
 	id: number;
 	name: string;
@@ -15,7 +14,7 @@ export default function Dashboard() {
 
 	useEffect(() => {
 		// Fetch data from the API when the component mounts
-		fetch('https://api.onrowhq.com/api/workspaces', {
+		fetch(`https://api.onrowhq.com/api/workspaces`, {
 			headers: {
 				Authorization: `Bearer ${Cookies.get('token')}`, // Include token in Authorization header
 			},
@@ -29,7 +28,7 @@ export default function Dashboard() {
 				return response.json();
 			})
 			.then((data) => {
-				console.log(data); // Log data here to check its structure
+				console.log();
 				if (
 					data &&
 					data.data &&

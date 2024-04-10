@@ -21,7 +21,7 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
 	id,
 }) => {
 	return (
-		<div className=" w-full lg:w-1/3 md:w-1/2 sm:w-full xs:w-full p-5">
+		<div className="w-full lg:w-1/3 md:w-1/2 sm:w-full xs:w-full p-5">
 			<Card className="p-5">
 				<CardHeader className="p-2 pt-0 md:p-4">
 					<CardTitle>{name}</CardTitle>
@@ -35,7 +35,7 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
 							size="sm"
 							className="w-full"
 						>
-							Go To WorkSpace
+							Go To Bases
 						</Button>
 					</Link>
 				</CardContent>
