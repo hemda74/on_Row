@@ -1,6 +1,7 @@
 import WorkspaceCard from '@/components/WorkspaceCard';
 import SideBarLg from '@/components/SideBarLg';
 import Header from '@/components/Header';
+import { withAuth } from './withAuth';
 interface Workspace {
 	id: number;
 	name: string;
@@ -11,7 +12,7 @@ interface Workspace {
 interface WorkspaceArray {
 	workspaceData: Workspace[];
 }
-export default function Dashboard() {
+const Dashboard = () => {
 	const workspaceData: Workspace[] = [
 		{
 			id: 1,
@@ -79,4 +80,5 @@ export default function Dashboard() {
 			</div>
 		</div>
 	);
-}
+};
+export default withAuth(Dashboard);

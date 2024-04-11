@@ -6,6 +6,7 @@ import BaseCard from '@/components/BaseCard';
 import SideBarLg from '@/components/SideBarLgBase';
 import Header from '@/components/HeaderBase';
 import Cookies from 'js-cookie';
+import { withAuth } from '@/pages/withAuth';
 
 interface Workspace {
 	id: number;
@@ -23,7 +24,7 @@ interface Workspace {
 	name: string;
 	description: string;
 }
-export default function WorkspaceDetail() {
+const WorkspaceDetail = () => {
 	const [baseData, setBaseData] = useState<Base[]>([]);
 	const [workspaceData, setWorkspaceData] = useState<Workspace[]>([]);
 
@@ -146,4 +147,5 @@ export default function WorkspaceDetail() {
 			</div>
 		</>
 	);
-}
+};
+export default withAuth(WorkspaceDetail);

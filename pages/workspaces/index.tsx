@@ -3,13 +3,13 @@ import WorkspaceCard from '@/components/WorkspaceCard';
 import SideBarLg from '@/components/SideBarLgHome';
 import Header from '@/components/HeaderHome';
 import Cookies from 'js-cookie';
+import { withAuth } from '../withAuth';
 interface Workspace {
 	id: number;
 	name: string;
 	description: string;
 }
-
-export default function Dashboard() {
+const Dashboard = () => {
 	const [workspaceData, setWorkspaceData] = useState<Workspace[]>([]);
 
 	useEffect(() => {
@@ -88,4 +88,5 @@ export default function Dashboard() {
 			</div>
 		</div>
 	);
-}
+};
+export default withAuth(Dashboard);
