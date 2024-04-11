@@ -64,7 +64,9 @@ const BaseCard: React.FC<BaseCardProps> = ({ name, description, id }) => {
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="p-2 pt-0 md:p-4 md:pt-0 flex justify-between">
-					<Link href={`/workspaces/bases/${id}`}>
+					<Link
+						href={`/workspaces/1/bases/${id}`}
+					>
 						<Button
 							size="sm"
 							className="w-4/9 me-2"

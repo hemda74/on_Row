@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import imagebaackground from '../public/login-background-image.jpg';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { toast } from 'react-hot-toast';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
@@ -46,11 +45,15 @@ const Dashboard: React.FC = () => {
 				Cookies.set('token', data.data.token, {
 					expires: 1000,
 				}); // Store token in cookie for 1000 day
-				router.push('/');
+				router.push('/workspaces');
 				console.log(data.token);
+			} else if (response.status === 401) {
+				toast.error(
+					"this Mail deosn't exist.... Plaese Enater a valied Mail or Create New Account "
+				);
 			}
 		} catch (error) {
-			console.error('Error:', error);
+			// console.error('Error:', error);
 		}
 	};
 

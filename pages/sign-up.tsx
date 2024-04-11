@@ -55,7 +55,7 @@ export default function Dashboard() {
 			const data = await response.json();
 			console.log('Response:', data);
 			if (response.status === 200) {
-				Cookies.set('token', data.token, {
+				Cookies.set('token', data.data.token, {
 					expires: 1000,
 				}); // Store token in cookie for 1000 day
 				setSuccess(true);
