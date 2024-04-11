@@ -44,7 +44,7 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 		const newname = event.target.value;
 		setName(newname);
 	};
-
+	// handle submit button on creating new base
 	const handleSubmit = () => {
 		if (1) {
 			toast.success('The Mail has been Sent Successfully.');
@@ -101,7 +101,7 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 						</Link>
 
 						<Link
-							href="/members"
+							href="/workspaces/members"
 							className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
 						>
 							<Users className="h-4 w-4" />
