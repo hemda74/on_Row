@@ -9,7 +9,7 @@ const Card = React.forwardRef<
 	<div
 		ref={ref}
 		className={cn(
-			'rounded-lg border bg-card text-card-foreground shadow-sm min-w-64',
+			'rounded-lg min-h-32 object-fit: contain overflow:hidden border bg-card text-card-foreground shadow-sm min-w-64',
 			className
 		)}
 		{...props}
@@ -50,7 +50,10 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<p
 		ref={ref}
-		className={cn('text-sm text-muted-foreground', className)}
+		className={cn(
+			'text-sm text-muted-foreground 	object-fit: contain',
+			className
+		)}
 		{...props}
 	/>
 ));
@@ -62,7 +65,7 @@ const CardContent = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<div
 		ref={ref}
-		className={cn('p-6 pt-0', className)}
+		className={cn('p-6 pt-0 ', className)}
 		{...props}
 	/>
 ));
@@ -74,7 +77,10 @@ const CardFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<div
 		ref={ref}
-		className={cn('flex items-center p-6 pt-0', className)}
+		className={cn(
+			'flex items-center mt-auto text-sm text-muted-foreground object-fit: contain p-6 pt-0',
+			className
+		)}
 		{...props}
 	/>
 ));

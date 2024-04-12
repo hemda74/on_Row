@@ -2,6 +2,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'react-hot-toast';
+import Cookies from 'js-cookie';
 
 import { Bell, Package2, Home, Users, LineChart } from 'lucide-react';
 import {
@@ -39,19 +40,81 @@ interface WorkspaceArray {
 }
 const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 	const [name, setName] = useState('');
-	const [desc, setDesc] = useState('');
+	const [description, setDescription] = useState('');
 	const handlenameChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const newname = event.target.value;
 		setName(newname);
 	};
+	const handledescChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const newdesc = event.target.value;
+		const descElement = document.getElementById('desc');
+		const descErrorMessageElement =
+			document.getElementById('descErrorMessage');
+
+		// Check if the elements exist before attempting to access their properties
+		if (descElement && descErrorMessageElement) {
+			descErrorMessageElement.innerText =
+				'Description must be at least 100 characters long';
+		}
+
+		setDescription(newdesc);
+	};
 	// handle submit button on creating new base
-	const handleSubmit = () => {
-		if (1) {
-			toast.success('The Mail has been Sent Successfully.');
-			console.log('Submitted:', { name, id });
+	// const handleSubmit = () => {
+	// 	if (name.length < 1) {
+	// 		toast.error('You Must Enter Base Name.');
+	// 	} else {
+	// 		if (desc.length < 100) {
+	// 			// name is not valid, show error message or handle accordingly
+	// 			toast.error(
+	// 				'Description must be at least 100 characters long.'
+	// 			);
+	// 		} else {
+	// 			toast.success('New Base Created Successfully.');
+	// 			console.log('Submitted:', { name, desc, id });
+	// 		}
+	// 	}
+	// };
+	const handleSubmit = async () => {
+		if (name.length < 1) {
+			toast.error('You Must Enter Base Name.');
+		} else if (description.length < 100) {
+			toast.error(
+				'Description must be at least 100 characters long.'
+			);
 		} else {
-			// name is not valid, show error message or handle accordingly
-			toast.error('Please enter a valid name address.');
+			try {
+				const token = Cookies.get('token');
+				if (!token) throw new Error('Token not found');
+
+				const response = await fetch(
+					`https://api.onrowhq.com/api/workspaces/1/bases/store`,
+					{
+						method: 'POST',
+						headers: {
+							Accept: 'multipart/form-data',
+							Authorization: `Bearer ${token}`,
+						},
+						body: JSON.stringify({
+							name,
+							description,
+						}),
+					}
+				);
+
+				if (!response.ok) {
+					throw new Error(
+						'Failed to create base'
+					);
+				}
+
+				toast.success('New Base Created Successfully.');
+			} catch (error) {
+				console.error('Error creating base:', error);
+				toast.error(
+					'Failed to create base. Please try again later.'
+				);
+			}
 		}
 	};
 
@@ -101,7 +164,7 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 						</Link>
 
 						<Link
-							href="/workspaces/members"
+							href={`/workspaces/${id}/members`}
 							className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
 						>
 							<Users className="h-4 w-4" />
@@ -125,10 +188,10 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 						<CardContent className="p-2 pt-0 md:p-4 md:pt-0">
 							<AlertDialog>
 								<AlertDialogTrigger>
-									<p className="bg-primary text-primary-foreground hover:bg-primary/90 p-3 rounded-md">
+									<div className="bg-primary text-primary-foreground hover:bg-primary/90 p-3 rounded-md">
 										Add
 										Base
-									</p>
+									</div>
 								</AlertDialogTrigger>
 								<AlertDialogContent>
 									<AlertDialogHeader>
@@ -137,26 +200,17 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 											Base
 										</AlertDialogTitle>
 										<AlertDialogDescription>
-											<CardHeader>
-												<CardDescription className="text-black font-semibold">
-													Enter
-													Name
-													And
-													Description
-													For
-													WorkSpace
-												</CardDescription>
-											</CardHeader>
+											<CardHeader></CardHeader>
 											<CardContent className="grid gap-4">
 												<div className="grid gap-2">
 													<Label htmlFor="name">
-														Workspace
+														Base
 														Name
 													</Label>
 													<Input
 														id="name"
 														type="name"
-														placeholder="Workspace Name"
+														placeholder="Name...."
 														value={
 															name
 														}
@@ -165,6 +219,25 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 														}
 														required
 													/>
+												</div>
+												<div className="grid gap-2">
+													<Label htmlFor="desc">
+														Base
+														Description
+													</Label>
+													<Input
+														id="desc"
+														type="text"
+														placeholder="Description...."
+														value={
+															description
+														}
+														onChange={
+															handledescChange
+														}
+														required
+													/>
+													<div id="descErrorMessage"></div>
 												</div>
 											</CardContent>
 										</AlertDialogDescription>

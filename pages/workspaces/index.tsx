@@ -59,11 +59,12 @@ const Dashboard = () => {
 						</h1>
 					</div>
 					<div
-						className="flex flex-1 bg-white items-start justify-center rounded-lg border border-dashed shadow-sm"
+						className="flex flex-1 bg-white items-start justify-center rounded-lg shadow-sm"
 						x-chunk="dashboard-02-chunk-1"
 					>
 						<div className="flex flex-row flex-wrap items-start">
 							{/* Map over workspaceData array to render WorkspaceCard components */}
+
 							{workspaceData.map(
 								(workspace) => (
 									<WorkspaceCard

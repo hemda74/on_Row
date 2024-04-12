@@ -58,8 +58,8 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
 	};
 
 	return (
-		<div className="w-full lg:w-1/3 md:w-1/2 sm:w-full xs:w-full p-5">
-			<Card className="p-5">
+		<div className="w-full lg:w-1/3  md:w-1/2 sm:w-full xs:w-full p-3  flex flex-row flex-wrap items-start">
+			<Card className="p-5 w-full min-h-32">
 				<CardHeader className="p-2 pt-0 md:p-4">
 					<CardTitle>{name}</CardTitle>
 					<CardDescription>

@@ -1,5 +1,6 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { withAuth } from '../withAuth';
+import { withAuth } from '@/pages/withAuth';
+import Cookies from 'js-cookie';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
 	Bell,
@@ -21,20 +22,50 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import BaseCard from '@/components/BaseCard';
-import MemberCard from '@/components/MemberCard';
 
+import MemberCard from '@/components/MemberCard';
+import Header from '@/components/HeaderHome';
+interface Workspace {
+	id: number;
+	name: string;
+	description: string;
+}
 const Dashboard = () => {
+	const [workspaceData, setWorkspaceData] = useState<Workspace[]>([]);
+	useEffect(() => {
+		// Fetch data from the API when the component mounts
+		fetch(`https://api.onrowhq.com/api/workspaces`, {
+			headers: {
+				Authorization: `Bearer ${Cookies.get('token')}`, // Include token in Authorization header
+			},
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error(
+						'Failed to fetch workspace data'
+					);
+				}
+				return response.json();
+			})
+			.then((data) => {
+				console.log();
+				if (
+					data &&
+					data.data &&
+					Array.isArray(data.data.workspaces)
+				) {
+					setWorkspaceData(data.data.workspaces);
+				} else {
+					throw new Error('Invalid data format');
+				}
+			})
+			.catch((error) => {
+				console.error(
+					'Error fetching workspace data:',
+					error
+				);
+			});
+	}, []);
 	const links = [
 		{
 			href: '/workspaces/bases/id',
@@ -162,120 +193,7 @@ const Dashboard = () => {
 				</div>
 			</div>
 			<div className="flex flex-col">
-				<header className="flex h-14 items-center gap-4 border-b  px-4 lg:h-[60px] lg:px-6">
-					<Sheet>
-						<SheetTrigger asChild>
-							<Button
-								variant="outline"
-								size="icon"
-								className="shrink-0 md:hidden"
-							>
-								<Menu className="h-5 w-5" />
-								<span className="sr-only">
-									Toggle
-									navigation
-									menu
-								</span>
-							</Button>
-						</SheetTrigger>
-						<SheetContent
-							side="left"
-							className="flex flex-col"
-						>
-							<nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-								<Link
-									href="#"
-									className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-								>
-									<Home className="h-4 w-4" />
-									Dashboard
-								</Link>
-								<Link
-									href="#"
-									className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-								>
-									<LineChart className="h-4 w-4" />{' '}
-									All
-									Workspace
-									Bases
-									<Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-										5
-									</Badge>
-								</Link>
-							</nav>
-							<div className="mt-auto p-4">
-								<Card x-chunk="dashboard-02-chunk-0">
-									<CardHeader className="p-2 pt-0 md:p-4">
-										<CardTitle>
-											Add
-											New
-											Base
-										</CardTitle>
-										<CardDescription>
-											Add
-											New
-											Base
-										</CardDescription>
-									</CardHeader>
-									<CardContent className="p-2 pt-0 md:p-4 md:pt-0 flex justify-between">
-										<Button
-											size="sm"
-											className="w-1/2"
-										>
-											Add
-											New
-											Base
-										</Button>
-									</CardContent>
-								</Card>
-							</div>
-						</SheetContent>
-					</Sheet>
-					<div className="w-full flex-1">
-						<form>
-							<div className="relative">
-								<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-								<Input
-									type="search"
-									placeholder="Search Base..."
-									className="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/4"
-								/>
-							</div>
-						</form>
-					</div>
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild>
-							<Button
-								variant="secondary"
-								size="icon"
-								className="rounded-full"
-							>
-								<CircleUser className="h-5 w-5" />
-								<span className="sr-only">
-									Toggle
-									user
-									menu
-								</span>
-							</Button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent align="end">
-							<DropdownMenuLabel>
-								My Account
-							</DropdownMenuLabel>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem>
-								Settings
-							</DropdownMenuItem>
-							<DropdownMenuItem>
-								Support
-							</DropdownMenuItem>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem>
-								Logout
-							</DropdownMenuItem>
-						</DropdownMenuContent>
-					</DropdownMenu>
-				</header>
+				<Header workspaceData={workspaceData} />
 				<main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
 					<div className="flex items-center">
 						<h1 className="text-lg font-semibold md:text-2xl">
