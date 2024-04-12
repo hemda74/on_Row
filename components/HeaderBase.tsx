@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
+import { toast } from 'react-hot-toast';
+
 import {
 	DropdownMenu,
 	DropdownMenuTrigger,
@@ -12,11 +14,30 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 import { Badge } from '@/components/ui/badge';
 
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { CircleUser, Home, LineChart, Menu, Search, Users } from 'lucide-react';
+import {
+	CircleUser,
+	Home,
+	LineChart,
+	Menu,
+	Search,
+	Users,
+	Trash2,
+} from 'lucide-react';
 import {
 	Card,
 	CardContent,
@@ -33,8 +54,9 @@ interface Workspace {
 // Define the interface for an array of workspace items
 interface WorkspaceArray {
 	workspaceData: Workspace[];
+	id: string | string[] | undefined;
 }
-const Header: React.FC<WorkspaceArray> = ({ workspaceData }) => {
+const Header: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 	const totalWorkspaces = workspaceData.length;
 	const router = useRouter();
 
@@ -43,6 +65,35 @@ const Header: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 		Cookies.remove('token');
 		// Redirect to "/login" route
 		router.push('/login');
+	};
+	const handleDelete = async () => {
+		try {
+			const response = await fetch(
+				`https://api.onrowhq.com/api/workspaces/${id}/destroy`,
+				{
+					method: 'DELETE',
+					headers: {
+						'Content-Type':
+							'application/json',
+						Authorization: `Bearer ${Cookies.get(
+							'token'
+						)}`, // Include token in Authorization header
+					},
+				}
+			);
+			if (response.ok) {
+				// Workspace destroyed successfully
+				toast.success('Workspace Delteted Succussfuly');
+				router.push('/workspaces'); // Redirect to homepage or any other route
+				toast.success('Workspace Delteted Succussfuly');
+			} else {
+				// Handle error response
+				console.error('Failed to delete workspace');
+			}
+		} catch (error) {
+			// Handle fetch error
+			console.error('Error:', error);
+		}
 	};
 	return (
 		<header className="flex h-14 items-center gap-4 border-b bg-white px-4 lg:h-[60px] lg:px-6">
@@ -85,12 +136,41 @@ const Header: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 						</Link>
 
 						<Link
-							href="/workspaces/members"
+							href={`/workspaces/${id}/members`}
 							className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
 						>
 							<Users className="h-4 w-4" />
 							Users
 						</Link>
+						<AlertDialog>
+							<AlertDialogTrigger className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+								<Trash2 className="w-4 h-4" />
+								Delete
+							</AlertDialogTrigger>
+							<AlertDialogContent>
+								<AlertDialogHeader>
+									<AlertDialogTitle>
+										Delete
+										WorkSpace..?
+									</AlertDialogTitle>
+									<AlertDialogDescription>
+										<CardContent className="grid gap-4"></CardContent>
+									</AlertDialogDescription>
+								</AlertDialogHeader>
+								<AlertDialogFooter>
+									<AlertDialogCancel>
+										Cancel
+									</AlertDialogCancel>
+									<AlertDialogAction
+										onClick={
+											handleDelete
+										}
+									>
+										Submit
+									</AlertDialogAction>
+								</AlertDialogFooter>
+							</AlertDialogContent>
+						</AlertDialog>
 					</nav>
 					<div className="mt-auto p-0">
 						<Card

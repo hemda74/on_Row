@@ -5,6 +5,7 @@ import Header from '@/components/HeaderHome';
 import Cookies from 'js-cookie';
 import BASE_URL from '../api/BaseUrl';
 import { withAuth } from '../withAuth';
+import { useRouter } from 'next/router';
 interface Workspace {
 	id: number;
 	name: string;
@@ -12,7 +13,8 @@ interface Workspace {
 }
 const Dashboard = () => {
 	const [workspaceData, setWorkspaceData] = useState<Workspace[]>([]);
-
+	const router = useRouter();
+	const { id } = router.query;
 	useEffect(() => {
 		// Fetch data from the API when the component mounts
 		fetch(`${BASE_URL}workspaces`, {
@@ -50,7 +52,10 @@ const Dashboard = () => {
 
 	return (
 		<div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-			<SideBarLg workspaceData={workspaceData} />
+			<SideBarLg
+				workspaceData={workspaceData}
+				id={id}
+			/>
 			<div className="flex flex-col">
 				<Header workspaceData={workspaceData} />
 				<main className="flex flex-1 bg-white flex-col gap-4 p-4 lg:gap-6 lg:p-6">

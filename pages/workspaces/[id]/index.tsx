@@ -19,11 +19,7 @@ interface Base {
 	name: string;
 	description: string;
 }
-interface Workspace {
-	id: number;
-	name: string;
-	description: string;
-}
+
 const WorkspaceDetail = () => {
 	const [baseData, setBaseData] = useState<Base[]>([]);
 	const [workspaceData, setWorkspaceData] = useState<Workspace[]>([]);
@@ -107,7 +103,10 @@ const WorkspaceDetail = () => {
 					id={id}
 				/>
 				<div className="flex flex-col">
-					<Header workspaceData={baseData} />
+					<Header
+						workspaceData={baseData}
+						id={id}
+					/>
 
 					<main className="flex flex-1 bg-white flex-col gap-4 p-4 lg:gap-6 lg:p-6">
 						<div className="flex items-center">

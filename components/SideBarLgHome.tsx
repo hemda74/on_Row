@@ -27,6 +27,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
+import { TextArea } from './ui/textArea';
+import BASE_URL from '@/pages/api/BaseUrl';
 // Define the interface for a workspace item
 interface Workspace {
 	id: number;
@@ -36,6 +38,7 @@ interface Workspace {
 // Define the interface for an array of workspace items
 interface WorkspaceArray {
 	workspaceData: Workspace[];
+	id: string | string[] | undefined;
 }
 const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 	const [name, setName] = useState('');
@@ -87,7 +90,7 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 				if (!token) throw new Error('Token not found');
 
 				const response = await fetch(
-					`https://api.onrowhq.com/api/workspaces/1/bases/store`,
+					`${BASE_URL}workspaces/1/bases/store`,
 					{
 						method: 'POST',
 						headers: {
@@ -126,19 +129,11 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 						href="/"
 						className="flex items-center gap-2 font-semibold"
 					>
-						<Package2 className="h-6 w-6" />
-						<span className="">onRow</span>
-					</Link>
-					<Button
-						variant="outline"
-						size="icon"
-						className="ml-auto h-8 w-8"
-					>
-						<Bell className="h-4 w-4" />
-						<span className="sr-only">
-							Toggle Menu
+						<Package2 className="h-6 w-6 text-primary" />
+						<span className="text-primary">
+							onRow
 						</span>
-					</Button>
+					</Link>
 				</div>
 				<div className="flex-1 bg-white">
 					<nav className="grid items-start px-2 text-sm font-medium lg:px-4">
@@ -176,7 +171,8 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 						<AlertDialog>
 							<AlertDialogTrigger>
 								<div className="bg-primary text-primary-foreground hover:bg-primary/90 p-3 rounded-md">
-									Add Base
+									Add
+									Workspace
 								</div>
 							</AlertDialogTrigger>
 							<AlertDialogContent>
@@ -207,10 +203,10 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 											</div>
 											<div className="grid gap-2">
 												<Label htmlFor="desc">
-													Base
+													WorkSpace
 													Description
 												</Label>
-												<Input
+												<TextArea
 													id="desc"
 													type="text"
 													placeholder="Description...."

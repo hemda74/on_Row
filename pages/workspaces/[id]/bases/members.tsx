@@ -1,6 +1,8 @@
 import { withAuth } from '@/pages/withAuth';
 import Cookies from 'js-cookie';
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+
 import MemberCard from '@/components/MemberCard';
 import SideBarLg from '@/components/SideBarLgHome';
 import Header from '@/components/HeaderHome';

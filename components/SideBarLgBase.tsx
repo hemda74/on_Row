@@ -3,7 +3,8 @@ import React, { useState, ChangeEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'react-hot-toast';
 import Cookies from 'js-cookie';
-import { Bell, Package2, Home, Users, LineChart } from 'lucide-react';
+import { useRouter } from 'next/router';
+import { Bell, Package2, Home, Users, LineChart, Trash2 } from 'lucide-react';
 import BASE_URL from '@/pages/api/BaseUrl';
 import {
 	Card,
@@ -41,6 +42,8 @@ interface WorkspaceArray {
 }
 const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 	const [name, setName] = useState('');
+	const router = useRouter();
+
 	const [description, setDescription] = useState('');
 	const handlenameChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const newname = event.target.value;
@@ -89,7 +92,7 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 				if (!token) throw new Error('Token not found');
 
 				const response = await fetch(
-					`${BASE_URL}workspaces/1/bases/store`,
+					`${BASE_URL}workspaces/${id}/bases/store`,
 					{
 						method: 'POST',
 						headers: {
@@ -119,7 +122,35 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 			}
 		}
 	};
-
+	const handleDelete = async () => {
+		try {
+			const response = await fetch(
+				`https://api.onrowhq.com/api/workspaces/${id}/destroy`,
+				{
+					method: 'DELETE',
+					headers: {
+						'Content-Type':
+							'application/json',
+						Authorization: `Bearer ${Cookies.get(
+							'token'
+						)}`, // Include token in Authorization header
+					},
+				}
+			);
+			if (response.ok) {
+				// Workspace destroyed successfully
+				toast.success('Workspace Delteted Succussfuly');
+				router.push('/workspaces'); // Redirect to homepage or any other route
+				toast.success('Workspace Delteted Succussfuly');
+			} else {
+				// Handle error response
+				console.error('Failed to delete workspace');
+			}
+		} catch (error) {
+			// Handle fetch error
+			console.error('Error:', error);
+		}
+	};
 	const totalWorkspaces = workspaceData.length;
 	return (
 		<div className="hidden border-r bg-muted/40 md:block">
@@ -129,19 +160,11 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 						href="/"
 						className="flex items-center gap-2 font-semibold"
 					>
-						<Package2 className="h-6 w-6" />
-						<span className="">onRow</span>
-					</Link>
-					<Button
-						variant="outline"
-						size="icon"
-						className="ml-auto h-8 w-8"
-					>
-						<Bell className="h-4 w-4" />
-						<span className="sr-only">
-							Toggle Menu
+						<Package2 className="h-6 w-6 text-primary" />
+						<span className="text-primary">
+							onRow
 						</span>
-					</Button>
+					</Link>
 				</div>
 				<div className="flex-1 bg-white">
 					<nav className="grid items-start px-2 text-sm font-medium lg:px-4">
@@ -172,6 +195,35 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 							<Users className="h-4 w-4" />
 							Users
 						</Link>
+						<AlertDialog>
+							<AlertDialogTrigger className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+								<Trash2 className="w-4 h-4" />
+								Delete
+							</AlertDialogTrigger>
+							<AlertDialogContent>
+								<AlertDialogHeader>
+									<AlertDialogTitle>
+										Delete
+										WorkSpace..?
+									</AlertDialogTitle>
+									<AlertDialogDescription>
+										<CardContent className="grid gap-4"></CardContent>
+									</AlertDialogDescription>
+								</AlertDialogHeader>
+								<AlertDialogFooter>
+									<AlertDialogCancel>
+										Cancel
+									</AlertDialogCancel>
+									<AlertDialogAction
+										onClick={
+											handleDelete
+										}
+									>
+										Submit
+									</AlertDialogAction>
+								</AlertDialogFooter>
+							</AlertDialogContent>
+						</AlertDialog>
 					</nav>
 				</div>
 				<div className="mt-auto p-4">

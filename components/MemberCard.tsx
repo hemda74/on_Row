@@ -1,33 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {
-	File,
-	Home,
-	LineChart,
-	ListFilter,
-	MoreHorizontal,
-	Package,
-	Package2,
-	PanelLeft,
-	PlusCircle,
-	Search,
-	Settings,
-	ShoppingCart,
-	Users2,
-} from 'lucide-react';
+import { MoreHorizontal } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 
 import { Button } from '@/components/ui/button';
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from '@/components/ui/card';
+
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
@@ -46,53 +25,58 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-
+interface MemberCardProps {
+	name: string;
+	email: string;
+	id: number;
+	created_at: string;
+	isAdmin: boolean;
+}
 const tableData = [
 	{
 		avatar: 'CN',
 		name: 'Laser Lemonade Machine',
 		status: 'Admin',
-		mail: '',
-		createdAt: '2023-07-12 10:42 AM',
+		email: '',
+		created_at: '2023-07-12 10:42 AM',
 	},
 	{
 		avatar: 'CN',
 		name: 'Hypernova Headphones',
 		status: 'User',
-		mail: '',
-		createdAt: '2023-10-18 03:21 PM',
+		email: '',
+		created_at: '2023-10-18 03:21 PM',
 	},
-	{
-		avatar: 'CN',
-		name: 'AeroGlow Desk Lamp',
-		status: 'User',
-		mail: '',
-		createdAt: '2023-11-29 08:15 AM',
-	},
+
 	{
 		avatar: 'CN',
 		name: 'TechTonic Energy Drink',
 		status: 'Admin',
-		mail: '',
-		createdAt: '2023-12-25 11:59 PM',
+		email: '',
+		created_at: '2023-12-25 11:59 PM',
 	},
 	{
 		avatar: 'CN',
 		name: 'Gamer Gear Pro Controller',
 		status: 'User',
-		mail: '',
-		createdAt: '2024-01-01 12:00 AM',
+		email: '',
+		created_at: '2024-01-01 12:00 AM',
 	},
 	{
 		avatar: 'CN',
 		name: 'Luminous VR Headset',
 		status: 'User',
-		mail: '',
-		createdAt: '2024-02-14 02:14 PM',
+		email: '',
+		created_at: '2024-02-14 02:14 PM',
 	},
 ];
 
-export default function Dashboard() {
+const MemberCard: React.FC<MemberCardProps> = ({
+	id,
+	name,
+	email,
+	created_at,
+}) => {
 	return (
 		<>
 			<Table className="w-full">
@@ -106,10 +90,10 @@ export default function Dashboard() {
 						<TableHead>Name</TableHead>
 						<TableHead>Status</TableHead>
 						<TableHead className="hidden md:table-cell">
-							Mail
+							Email
 						</TableHead>
 						<TableHead className="hidden md:table-cell">
-							Created at
+							Entered at
 						</TableHead>
 						<TableHead>
 							<span className="sr-only">
@@ -121,17 +105,9 @@ export default function Dashboard() {
 				<TableBody>
 					{tableData.map((item, index) => (
 						<TableRow key={index}>
-							<TableCell className="hidden sm:table-cell">
-								<Avatar>
-									<AvatarFallback>
-										{
-											item.avatar
-										}
-									</AvatarFallback>
-								</Avatar>
-							</TableCell>
+							<TableCell className="hidden sm:table-cell"></TableCell>
 							<TableCell className="font-medium">
-								{item.name}
+								{name}
 							</TableCell>
 							<TableCell>
 								<Badge
@@ -148,10 +124,10 @@ export default function Dashboard() {
 								</Badge>
 							</TableCell>
 							<TableCell className="hidden md:table-cell">
-								{item.mail}
+								{email}
 							</TableCell>
 							<TableCell className="hidden md:table-cell">
-								{item.createdAt}
+								{created_at}
 							</TableCell>
 							<TableCell>
 								<DropdownMenu>
@@ -178,6 +154,12 @@ export default function Dashboard() {
 											Edit
 										</DropdownMenuItem>
 										<DropdownMenuItem>
+											Set
+											As
+											Admin
+										</DropdownMenuItem>
+
+										<DropdownMenuItem>
 											Delete{' '}
 											{item.status ===
 											'Admin'
@@ -193,4 +175,5 @@ export default function Dashboard() {
 			</Table>
 		</>
 	);
-}
+};
+export default MemberCard;
