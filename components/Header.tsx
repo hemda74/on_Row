@@ -1,6 +1,8 @@
 // Header.tsx
 import React from 'react';
 import Link from 'next/link';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 import { Button } from '@/components/ui/button';
 import {
 	DropdownMenu,
@@ -34,6 +36,14 @@ interface WorkspaceArray {
 }
 const Header: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 	const totalWorkspaces = workspaceData.length;
+	const router = useRouter();
+
+	const handleLogout = () => {
+		// Delete token from storage
+		Cookies.remove('token');
+		// Redirect to "/login" route
+		router.push('/login');
+	};
 	return (
 		<header className="flex h-14 items-center gap-4 border-b bg-white px-4 lg:h-[60px] lg:px-6">
 			<Sheet>
@@ -154,7 +164,12 @@ const Header: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem>
-						Logout
+						<Button
+							onClick={handleLogout}
+							className="mt-4 w-full"
+						>
+							Logout
+						</Button>
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>

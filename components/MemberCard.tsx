@@ -52,42 +52,42 @@ const tableData = [
 		avatar: 'CN',
 		name: 'Laser Lemonade Machine',
 		status: 'Admin',
-		totalSales: 25,
+		mail: '',
 		createdAt: '2023-07-12 10:42 AM',
 	},
 	{
 		avatar: 'CN',
 		name: 'Hypernova Headphones',
 		status: 'User',
-		totalSales: 100,
+		mail: '',
 		createdAt: '2023-10-18 03:21 PM',
 	},
 	{
 		avatar: 'CN',
 		name: 'AeroGlow Desk Lamp',
 		status: 'User',
-		totalSales: 50,
+		mail: '',
 		createdAt: '2023-11-29 08:15 AM',
 	},
 	{
 		avatar: 'CN',
 		name: 'TechTonic Energy Drink',
 		status: 'Admin',
-		totalSales: 0,
+		mail: '',
 		createdAt: '2023-12-25 11:59 PM',
 	},
 	{
 		avatar: 'CN',
 		name: 'Gamer Gear Pro Controller',
 		status: 'User',
-		totalSales: 75,
+		mail: '',
 		createdAt: '2024-01-01 12:00 AM',
 	},
 	{
 		avatar: 'CN',
 		name: 'Luminous VR Headset',
 		status: 'User',
-		totalSales: 30,
+		mail: '',
 		createdAt: '2024-02-14 02:14 PM',
 	},
 ];
@@ -106,7 +106,7 @@ export default function Dashboard() {
 						<TableHead>Name</TableHead>
 						<TableHead>Status</TableHead>
 						<TableHead className="hidden md:table-cell">
-							Total Sales
+							Mail
 						</TableHead>
 						<TableHead className="hidden md:table-cell">
 							Created at
@@ -148,9 +148,7 @@ export default function Dashboard() {
 								</Badge>
 							</TableCell>
 							<TableCell className="hidden md:table-cell">
-								{
-									item.totalSales
-								}
+								{item.mail}
 							</TableCell>
 							<TableCell className="hidden md:table-cell">
 								{item.createdAt}

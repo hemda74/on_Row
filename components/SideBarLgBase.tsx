@@ -3,8 +3,8 @@ import React, { useState, ChangeEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'react-hot-toast';
 import Cookies from 'js-cookie';
-
 import { Bell, Package2, Home, Users, LineChart } from 'lucide-react';
+import BASE_URL from '@/pages/api/BaseUrl';
 import {
 	Card,
 	CardHeader,
@@ -27,6 +27,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
+import { TextArea } from './ui/textArea';
 // Define the interface for a workspace item
 interface Workspace {
 	id: number;
@@ -88,11 +89,12 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 				if (!token) throw new Error('Token not found');
 
 				const response = await fetch(
-					`https://api.onrowhq.com/api/workspaces/1/bases/store`,
+					`${BASE_URL}workspaces/1/bases/store`,
 					{
 						method: 'POST',
 						headers: {
-							Accept: 'multipart/form-data',
+							'Content-Type':
+								'application/json',
 							Authorization: `Bearer ${token}`,
 						},
 						body: JSON.stringify({
@@ -173,91 +175,84 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 					</nav>
 				</div>
 				<div className="mt-auto p-4">
-					<Card x-chunk="dashboard-02-chunk-0">
-						<CardHeader className="p-2 pt-0 md:p-4">
-							<CardTitle>
-								New Base
-							</CardTitle>
-							<CardDescription>
-								Add New Base and
-								get unlimited
-								access to our
-								support team.
-							</CardDescription>
-						</CardHeader>
-						<CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-							<AlertDialog>
-								<AlertDialogTrigger>
-									<div className="bg-primary text-primary-foreground hover:bg-primary/90 p-3 rounded-md">
+					<CardHeader className="p-2 pt-0 md:p-4">
+						<CardTitle>New Base</CardTitle>
+						<CardDescription>
+							Add New Base and get
+							unlimited access to our
+							support team.
+						</CardDescription>
+					</CardHeader>
+					<CardContent className="p-2 pt-0 md:p-4 md:pt-0">
+						<AlertDialog>
+							<AlertDialogTrigger>
+								<div className="bg-primary text-primary-foreground hover:bg-primary/90 p-3 rounded-md">
+									Add Base
+								</div>
+							</AlertDialogTrigger>
+							<AlertDialogContent>
+								<AlertDialogHeader>
+									<AlertDialogTitle>
 										Add
 										Base
-									</div>
-								</AlertDialogTrigger>
-								<AlertDialogContent>
-									<AlertDialogHeader>
-										<AlertDialogTitle>
-											Add
-											Base
-										</AlertDialogTitle>
-										<AlertDialogDescription>
-											<CardHeader></CardHeader>
-											<CardContent className="grid gap-4">
-												<div className="grid gap-2">
-													<Label htmlFor="name">
-														Base
-														Name
-													</Label>
-													<Input
-														id="name"
-														type="name"
-														placeholder="Name...."
-														value={
-															name
-														}
-														onChange={
-															handlenameChange
-														}
-														required
-													/>
-												</div>
-												<div className="grid gap-2">
-													<Label htmlFor="desc">
-														Base
-														Description
-													</Label>
-													<Input
-														id="desc"
-														type="text"
-														placeholder="Description...."
-														value={
-															description
-														}
-														onChange={
-															handledescChange
-														}
-														required
-													/>
-													<div id="descErrorMessage"></div>
-												</div>
-											</CardContent>
-										</AlertDialogDescription>
-									</AlertDialogHeader>
-									<AlertDialogFooter>
-										<AlertDialogCancel>
-											Cancel
-										</AlertDialogCancel>
-										<AlertDialogAction
-											onClick={
-												handleSubmit
-											}
-										>
-											Submit
-										</AlertDialogAction>
-									</AlertDialogFooter>
-								</AlertDialogContent>
-							</AlertDialog>
-						</CardContent>
-					</Card>
+									</AlertDialogTitle>
+									<AlertDialogDescription>
+										<CardContent className="grid gap-4">
+											<div className="grid gap-2">
+												<Label htmlFor="name">
+													Base
+													Name
+												</Label>
+												<Input
+													id="name"
+													type="name"
+													placeholder="Name...."
+													value={
+														name
+													}
+													onChange={
+														handlenameChange
+													}
+													required
+												/>
+											</div>
+											<div className="grid gap-2">
+												<Label htmlFor="desc">
+													Base
+													Description
+												</Label>
+												<TextArea
+													id="desc"
+													type="text"
+													placeholder="Description...."
+													value={
+														description
+													}
+													onChange={
+														handledescChange
+													}
+													required
+												/>
+												<div id="descErrorMessage"></div>
+											</div>
+										</CardContent>
+									</AlertDialogDescription>
+								</AlertDialogHeader>
+								<AlertDialogFooter>
+									<AlertDialogCancel>
+										Cancel
+									</AlertDialogCancel>
+									<AlertDialogAction
+										onClick={
+											handleSubmit
+										}
+									>
+										Submit
+									</AlertDialogAction>
+								</AlertDialogFooter>
+							</AlertDialogContent>
+						</AlertDialog>
+					</CardContent>
 				</div>
 			</div>
 		</div>
