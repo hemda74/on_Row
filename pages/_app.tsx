@@ -1,5 +1,4 @@
 import { ToastProvider } from '@/providers/toast-provider';
-import '../styles/rowstckstyles.css';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
