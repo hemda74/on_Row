@@ -28,7 +28,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { TextArea } from './ui/textArea';
+import { Textarea } from './ui/textarea';
 // Define the interface for a workspace item
 interface Workspace {
 	id: number;
@@ -49,7 +49,7 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 		const newname = event.target.value;
 		setName(newname);
 	};
-	const handledescChange = (event: ChangeEvent<HTMLInputElement>) => {
+	const handledescChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		const newdesc = event.target.value;
 		const descElement = document.getElementById('desc');
 		const descErrorMessageElement =
@@ -125,7 +125,7 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 	const handleDelete = async () => {
 		try {
 			const response = await fetch(
-				`https://api.onrowhq.com/api/workspaces/${id}/destroy`,
+				`https://api.onrowhq.com/api/workspaces/${id}/bases/${workspaceData}/destroy`,
 				{
 					method: 'DELETE',
 					headers: {
@@ -273,9 +273,8 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 													Base
 													Description
 												</Label>
-												<TextArea
+												<Textarea
 													id="desc"
-													type="text"
 													placeholder="Description...."
 													value={
 														description

@@ -3,8 +3,8 @@ import React, { useState, ChangeEvent } from 'react';
 
 import { toast } from 'react-hot-toast';
 import Cookies from 'js-cookie';
-import { Button } from '@/components/ui/button';
-import { Bell, Package2, Home, Users, LineChart } from 'lucide-react';
+import { useRouter } from 'next/router';
+import { Bell, Package2, Home, LineChart } from 'lucide-react';
 import {
 	Card,
 	CardHeader,
@@ -27,7 +27,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { TextArea } from './ui/textArea';
+import { Textarea } from './ui/textarea';
 import BASE_URL from '@/pages/api/BaseUrl';
 // Define the interface for a workspace item
 interface Workspace {
@@ -40,14 +40,15 @@ interface WorkspaceArray {
 	workspaceData: Workspace[];
 	id: string | string[] | undefined;
 }
-const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData }) => {
+const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
+	const router = useRouter();
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
 	const handlenameChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const newname = event.target.value;
 		setName(newname);
 	};
-	const handledescChange = (event: ChangeEvent<HTMLInputElement>) => {
+	const handledescChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		const newdesc = event.target.value;
 		const descElement = document.getElementById('desc');
 		const descErrorMessageElement =
@@ -61,22 +62,6 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 
 		setDescription(newdesc);
 	};
-	// handle submit button on creating new base
-	// const handleSubmit = () => {
-	// 	if (name.length < 1) {
-	// 		toast.error('You Must Enter Base Name.');
-	// 	} else {
-	// 		if (desc.length < 100) {
-	// 			// name is not valid, show error message or handle accordingly
-	// 			toast.error(
-	// 				'Description must be at least 100 characters long.'
-	// 			);
-	// 		} else {
-	// 			toast.success('New Base Created Successfully.');
-	// 			console.log('Submitted:', { name, desc, id });
-	// 		}
-	// 	}
-	// };
 	const handleSubmit = async () => {
 		if (name.length < 1) {
 			toast.error('You Must Enter Base Name.');
@@ -118,6 +103,35 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 					'Failed to create base. Please try again later.'
 				);
 			}
+		}
+	};
+	const handleDelete = async () => {
+		try {
+			const response = await fetch(
+				`https://api.onrowhq.com/api/workspaces/${id}/destroy`,
+				{
+					method: 'DELETE',
+					headers: {
+						'Content-Type':
+							'application/json',
+						Authorization: `Bearer ${Cookies.get(
+							'token'
+						)}`, // Include token in Authorization header
+					},
+				}
+			);
+			if (response.ok) {
+				// Workspace destroyed successfully
+				toast.success('Workspace Delteted Succussfuly');
+				router.push('/workspaces'); // Redirect to homepage or any other route
+				toast.success('Workspace Delteted Succussfuly');
+			} else {
+				// Handle error response
+				console.error('Failed to delete workspace');
+			}
+		} catch (error) {
+			// Handle fetch error
+			console.error('Error:', error);
 		}
 	};
 	const totalWorkspaces = workspaceData.length;
@@ -206,9 +220,8 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 													WorkSpace
 													Description
 												</Label>
-												<TextArea
+												<Textarea
 													id="desc"
-													type="text"
 													placeholder="Description...."
 													value={
 														description
