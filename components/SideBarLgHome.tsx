@@ -29,6 +29,8 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from './ui/textarea';
 import BASE_URL from '@/pages/api/BaseUrl';
+import Image from 'next/image';
+import logo from '@/public/logo.png';
 // Define the interface for a workspace item
 interface Workspace {
 	id: number;
@@ -143,10 +145,11 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 						href="/"
 						className="flex items-center gap-2 font-semibold"
 					>
-						<Package2 className="h-6 w-6 text-primary" />
-						<span className="text-primary">
-							onRow
-						</span>
+						<Image
+							src={logo}
+							width={70}
+							alt={''}
+						/>
 					</Link>
 				</div>
 				<div className="flex-1 bg-white">
