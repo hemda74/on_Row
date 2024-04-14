@@ -26,7 +26,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { Textarea } from './ui/textarea';
+import { Textarea } from '@/components/ui/textarea';
 import BASE_URL from '@/pages/api/BaseUrl';
 import Image from 'next/image';
 import logo from '@/public/logo.png';

@@ -4,20 +4,6 @@ import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import BASE_URL from '@/pages/api/BaseUrl';
 import noworkspace from '@/public/no-workspace.svg';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 import Image from 'next/image';
 const NoWokSpaceCard = () => {
 	const router = useRouter();
