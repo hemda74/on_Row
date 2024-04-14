@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import BaseCard from '@/components/BaseCard';
 import Cookies from 'js-cookie';
+import BASE_URL from '@/pages/api/BaseUrl';
 interface Base {
 	id: number;
 	name: string;

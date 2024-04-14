@@ -86,41 +86,78 @@ const BaseCard: React.FC<BaseCardProps> = ({ name, description, id }) => {
 									Share
 									Base
 								</AlertDialogTitle>
-								<AlertDialogDescription>
-									<CardHeader>
-										<CardDescription className="text-black font-semibold">
-											Enter
-											Email
-											To
-											Share
-											Base
-											With
-										</CardDescription>
-									</CardHeader>
-									<CardContent className="grid gap-4">
-										<div className="grid gap-2">
-											<Label htmlFor="email">
-												Email
-											</Label>
-											<Input
-												id="email"
-												type="email"
-												placeholder="m@example.com"
-												value={
-													email
-												}
-												onChange={
-													handleEmailChange
-												}
-												required
-												className={
-													!isValidEmail
-														? ''
-														: ''
-												}
-											/>
+								<AlertDialogDescription className="">
+									<div className="d-flex flex-row">
+										<div className="w-full">
+											<CardHeader>
+												<CardDescription className="text-black font-semibold">
+													Ad
+												</CardDescription>
+											</CardHeader>
+											<CardContent className="grid gap-4">
+												<div className="grid gap-2">
+													<Label htmlFor="email">
+														Email
+													</Label>
+													<Input
+														id="email"
+														type="email"
+														placeholder="m@example.com"
+														value={
+															email
+														}
+														onChange={
+															handleEmailChange
+														}
+														required
+														className={
+															!isValidEmail
+																? ''
+																: ''
+														}
+													/>
+												</div>
+											</CardContent>
 										</div>
-									</CardContent>
+										<div className="w-full">
+											<CardHeader>
+												<CardDescription className="text-black font-semibold">
+													Enter
+													Email
+													To
+													Share
+													Base
+													With
+													External
+													User
+												</CardDescription>
+											</CardHeader>
+											<CardContent className="grid gap-4">
+												<div className="grid gap-2">
+													<Label htmlFor="email">
+														Email
+													</Label>
+													<Input
+														id="email"
+														type="email"
+														placeholder="m@example.com"
+														value={
+															email
+														}
+														onChange={
+															handleEmailChange
+														}
+														required
+														className={
+															!isValidEmail
+																? ''
+																: ''
+														}
+													/>
+												</div>
+											</CardContent>
+										</div>
+									</div>
 								</AlertDialogDescription>
 							</AlertDialogHeader>
 							<AlertDialogFooter>

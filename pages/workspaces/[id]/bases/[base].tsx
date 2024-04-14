@@ -18,7 +18,6 @@ import {
 	ShoppingCart,
 	Users,
 } from 'lucide-react';
-import RowStackTable from '@/components/RowStackTable';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -136,9 +135,7 @@ export default function Dashboard() {
 					workspaceData={baseData}
 					id={id}
 				/>
-				<main className="flex flex-1 bg-white  flex-col ">
-					<RowStackTable />
-				</main>
+				<main className="flex flex-1 bg-white  flex-col "></main>
 			</div>
 		</div>
 	);

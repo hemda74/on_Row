@@ -72,7 +72,7 @@ const WorkspaceCard: React.FC<WorkspaceCardProps> = ({
 							size="sm"
 							className="w-full"
 						>
-							Go To Bases
+							Open Workspace
 						</Button>
 					</Link>
 					<AlertDialog>

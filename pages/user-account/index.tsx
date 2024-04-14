@@ -76,10 +76,11 @@ const UserAccount: React.FC<MemberInfo> = () => {
 					<main className="flex flex-1 md:w-full sm:w-full xs:w-full lg:w-full bg-white flex-col gap-4 p-4 lg:gap-6 lg:p-6">
 						<div className="flex items-center">
 							<h1 className="text-lg  font-semibold md:text-2xl block">
-								Welcome {name}{' '}
+								welcome {name}{' '}
 								<br />
 								Workspaces
 							</h1>
+							<h1 className="text-lg font-semibold md:text-2xl block"></h1>
 						</div>
 						<div
 							className="flex flex-1 bg-white items-start justify-center rounded-lg shadow-sm"
