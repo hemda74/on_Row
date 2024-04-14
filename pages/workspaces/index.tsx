@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 import BASE_URL from '../api/BaseUrl';
 import { withAuth } from '../withAuth';
 import { useRouter } from 'next/router';
+import NoWokSpaceCard from '@/components/NoWokSpaceCard';
 interface Workspace {
 	id: number;
 	name: string;
@@ -69,24 +70,32 @@ const Dashboard = () => {
 						x-chunk="dashboard-02-chunk-1"
 					>
 						<div className="flex flex-row flex-wrap items-start">
-							{/* Map over workspaceData array to render WorkspaceCard components */}
-
-							{workspaceData.map(
-								(workspace) => (
-									<WorkspaceCard
-										key={
-											workspace.id
-										}
-										name={
-											workspace.name
-										}
-										description={
-											workspace.description
-										}
-										id={
-											workspace.id
-										}
-									/>
+							{/* Check if workspaceData length is 0 */}
+							{workspaceData.length ===
+							0 ? (
+								// If workspaceData is empty
+								<NoWokSpaceCard />
+							) : (
+								// If workspaceData is not empty, map over the array and render WorkspaceCard components
+								workspaceData.map(
+									(
+										workspace
+									) => (
+										<WorkspaceCard
+											key={
+												workspace.id
+											}
+											name={
+												workspace.name
+											}
+											description={
+												workspace.description
+											}
+											id={
+												workspace.id
+											}
+										/>
+									)
 								)
 							)}
 						</div>

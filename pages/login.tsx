@@ -16,6 +16,7 @@ const Dashboard: React.FC = () => {
 		password: '',
 	});
 	const router = useRouter();
+	const [errorMessage, setErrorMessage] = useState<string>(''); // State for error message
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -24,7 +25,6 @@ const Dashboard: React.FC = () => {
 			[name]: value,
 		}));
 	};
-
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
@@ -43,17 +43,23 @@ const Dashboard: React.FC = () => {
 			console.log('Response:', data);
 			if (response.status === 200) {
 				Cookies.set('token', data.data.token, {
-					expires: 1000,
-				}); // Store token in cookie for 1000 day
-				router.push('/workspaces');
-				console.log(data.token);
-			} else if (response.status === 401) {
-				toast.error(
-					"this Mail deosn't exist.... Plaese Enater a valied Mail or Create New Account "
+					expires: 9000,
+				});
+				router.push({
+					pathname: '/user-account',
+					query: {
+						name: data.data.user.name,
+						email: data.data.user.email,
+					}, // Pass user data as query params
+				});
+			} else {
+				setErrorMessage(
+					'Invalid Credentials. Please enter a check your email and password or create a new account.'
 				);
+				setFormData({ email: '', password: '' });
 			}
 		} catch (error) {
-			// console.error('Error:', error);
+			console.error('Error:', error);
 		}
 	};
 
@@ -70,6 +76,11 @@ const Dashboard: React.FC = () => {
 			</div>
 			<div className="flex items-center justify-center py-12 bg-gray-100 min-h-screen">
 				<div className="mx-auto bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+					{errorMessage && (
+						<div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-4 rounded">
+							{errorMessage}
+						</div>
+					)}
 					<div className="grid gap-2 text-center">
 						<h1 className="text-3xl font-bold">
 							Login
@@ -116,7 +127,7 @@ const Dashboard: React.FC = () => {
 									</label>
 									<a
 										href="/forgot-password"
-										className="text-sm "
+										className="text-sm"
 									>
 										Forgot
 										your
@@ -139,17 +150,10 @@ const Dashboard: React.FC = () => {
 							</div>
 							<Button
 								type="submit"
-								className="w-full "
+								className="w-full"
 							>
 								Login
 							</Button>
-							{/* <button
-								type="button"
-								className="w-full bg-gray-200 text-gray-700 rounded-md py-2 px-4 hover:bg-gray-300 transition duration-300 ease-in-out"
-							>
-								Login with
-								Google
-							</button> */}
 						</div>
 					</form>
 					<div className="mt-4 text-center text-sm">

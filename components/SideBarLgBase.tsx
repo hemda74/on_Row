@@ -116,6 +116,7 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 				}
 
 				toast.success('New Base Created Successfully.');
+				window.location.reload();
 			} catch (error) {
 				console.error('Error creating base:', error);
 				toast.error(

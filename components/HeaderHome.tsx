@@ -145,7 +145,9 @@ const Header: React.FC<WorkspaceArray> = ({ workspaceData }) => {
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end">
 					<DropdownMenuLabel>
-						My Account
+						<Link href="/user-account">
+							My Account
+						</Link>
 					</DropdownMenuLabel>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem>
