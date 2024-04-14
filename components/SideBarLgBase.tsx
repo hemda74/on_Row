@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'react-hot-toast';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import { Bell, Package2, Home, Users, LineChart, Trash2 } from 'lucide-react';
+import { Home, Users, LineChart, Trash2 } from 'lucide-react';
 import BASE_URL from '@/pages/api/BaseUrl';
 import {
 	Card,
@@ -29,6 +29,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from './ui/textarea';
+import Image from 'next/image';
+import logo from '@/public/logo.png';
 // Define the interface for a workspace item
 interface Workspace {
 	id: number;
@@ -160,10 +162,11 @@ const SideBarLg: React.FC<WorkspaceArray> = ({ workspaceData, id }) => {
 						href="/"
 						className="flex items-center gap-2 font-semibold"
 					>
-						<Package2 className="h-6 w-6 text-primary" />
-						<span className="text-primary">
-							onRow
-						</span>
+						<Image
+							src={logo}
+							width={70}
+							alt={''}
+						/>
 					</Link>
 				</div>
 				<div className="flex-1 bg-white">
