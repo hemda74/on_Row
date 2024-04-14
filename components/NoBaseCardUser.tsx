@@ -6,7 +6,6 @@ import BASE_URL from '@/pages/api/BaseUrl';
 import noworkspace from '@/public/no-workspace.svg';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from './ui/textarea';
 
 import {
 	AlertDialog,

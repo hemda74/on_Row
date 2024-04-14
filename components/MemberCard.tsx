@@ -24,7 +24,6 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 interface MemberCardProps {
 	name: string;
 	email: string;

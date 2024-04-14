@@ -4,10 +4,9 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'react-hot-toast';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import { Home, Users, LineChart, Trash2 } from 'lucide-react';
+import { Home, Trash2, Users } from 'lucide-react';
 import BASE_URL from '@/pages/api/BaseUrl';
 import {
-	Card,
 	CardHeader,
 	CardTitle,
 	CardDescription,

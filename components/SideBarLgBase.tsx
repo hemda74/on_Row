@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import { Home, Users, LineChart, Trash2 } from 'lucide-react';
 import BASE_URL from '@/pages/api/BaseUrl';
 import {
-	Card,
 	CardHeader,
 	CardTitle,
 	CardDescription,
