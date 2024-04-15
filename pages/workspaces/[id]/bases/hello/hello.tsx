@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 import { Draggable } from '@/components/Draggable';
 import { Droppable } from '@/components/Droppable';
+import { withAuth } from '@/pages/Auth/withAuth';
 
 export default function Example() {
 	const [parent, setParent] = useState<string | null>(null);

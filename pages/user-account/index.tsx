@@ -4,7 +4,7 @@ import SideBarLg from '@/components/SideBarLgMember';
 import Header from '@/components/HeaderMember';
 import Cookies from 'js-cookie';
 import BASE_URL from '../api/BaseUrl';
-import { withAuth } from '../withAuth';
+import { withAuth } from '@/pages/Auth/withAuth';
 import { useRouter } from 'next/router';
 import NoWokSpaceCard from '@/components/NoWokSpaceCard';
 import BaseCard from '@/components/BaseCard';

@@ -4,7 +4,7 @@ import SideBarLg from '@/components/SideBarLgHome';
 import Header from '@/components/HeaderHome';
 import Cookies from 'js-cookie';
 import BASE_URL from '../api/BaseUrl';
-import { withAuth } from '../withAuth';
+import { withAuth } from '@/pages/Auth/withAuth';
 import { useRouter } from 'next/router';
 import NoWokSpaceCard from '@/components/NoWokSpaceCard';
 interface Workspace {

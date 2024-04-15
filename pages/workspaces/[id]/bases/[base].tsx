@@ -5,7 +5,7 @@ import BaseCard from '@/components/BaseCard';
 import SideBarLg from '@/components/SideBarLgBase';
 import Header from '@/components/HeaderBase';
 import Cookies from 'js-cookie';
-import { withAuth } from '@/pages/withAuth';
+import { withAuth } from '@/pages/Auth/withAuth';
 import {
 	Bell,
 	CircleUser,

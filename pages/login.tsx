@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import imagebaackground from '../public/login-background-image.jpg';
 import { Button } from '@/components/ui/button';
-import { toast } from 'react-hot-toast';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
+import BASE_URL from './api/BaseUrl';
 interface FormData {
 	email: string;
 	password: string;
@@ -28,17 +28,13 @@ const Dashboard: React.FC = () => {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			const response = await fetch(
-				'https://api.onrowhq.com/api/auth/login',
-				{
-					method: 'POST',
-					headers: {
-						'Content-Type':
-							'application/json',
-					},
-					body: JSON.stringify(formData),
-				}
-			);
+			const response = await fetch(`${BASE_URL}auth/login`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(formData),
+			});
 			const data = await response.json();
 			console.log('Response:', data);
 			if (response.status === 200) {

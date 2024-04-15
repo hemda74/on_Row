@@ -1,5 +1,6 @@
 import React from 'react';
 import Dashboard from '@/pages/workspaces/index';
+import { withAuth } from '@/pages/Auth/withAuth';
 
 const index = () => {
 	return (
@@ -9,4 +10,4 @@ const index = () => {
 	);
 };
 
-export default index;
+export default withAuth(index);

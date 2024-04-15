@@ -4,6 +4,7 @@ import imagebaackground from '../public/login-background-image.jpg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { withAuth } from '@/pages/Auth/withAuth';
 
 export default function Dashboard() {
 	return (

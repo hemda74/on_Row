@@ -1,4 +1,4 @@
-import { withAuth } from '@/pages/withAuth';
+import { withAuth } from '@/pages/Auth/withAuth';
 import Cookies from 'js-cookie';
 import React, { useState, useEffect } from 'react';
 import MemberCard from '@/components/MemberCard';
