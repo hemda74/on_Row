@@ -22,17 +22,24 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/router';
 
 interface BaseCardProps {
 	name: string;
 	description: string;
 	id: number;
+	workspace_id: number;
 }
 
-const BaseCard: React.FC<BaseCardProps> = ({ name, description, id }) => {
+const BaseCard: React.FC<BaseCardProps> = ({
+	name,
+	description,
+	id,
+	workspace_id,
+}) => {
 	const [email, setEmail] = useState('');
 	const [isValidEmail, setIsValidEmail] = useState(true);
-
+	const router = useRouter();
 	const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const newEmail = event.target.value;
 		setEmail(newEmail);
@@ -65,7 +72,7 @@ const BaseCard: React.FC<BaseCardProps> = ({ name, description, id }) => {
 				</CardHeader>
 				<CardContent className="p-2 pt-0 md:p-4 md:pt-0 flex justify-between">
 					<Link
-						href={`/workspaces/1/bases/${id}`}
+						href={`/workspaces/${workspace_id}/bases/${id}`}
 					>
 						<Button
 							size="sm"

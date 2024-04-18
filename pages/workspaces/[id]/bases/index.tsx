@@ -11,6 +11,7 @@ interface Base {
 	id: number;
 	name: string;
 	description: string;
+	workspace_id: number;
 }
 
 export default function BasesPage() {
@@ -21,19 +22,17 @@ export default function BasesPage() {
 	useEffect(() => {
 		// Fetch base data based on the workspace id
 		if (id) {
-			fetch(
-				`https://api.onrowhq.com/api/workspaces/workspaces/${id}/bases/`,
-				{
-					headers: {
-						Authorization: `Bearer ${Cookies.get(
-							'token'
-						)}`,
-					},
-				}
-			)
+			fetch(`${BASE_URL}workspaces/workspaces/${id}/bases/`, {
+				headers: {
+					Authorization: `Bearer ${Cookies.get(
+						'token'
+					)}`,
+				},
+			})
 				.then((response) => response.json())
 				.then((data) => {
 					// Assuming data contains an array of bases
+					console.log(data);
 					setBaseData(data);
 				})
 				.catch((error) => {
@@ -44,7 +43,7 @@ export default function BasesPage() {
 				});
 		}
 	}, [id]);
-
+	const baseid = id;
 	return (
 		<div>
 			{/* Render base cards using baseData */}
@@ -54,6 +53,7 @@ export default function BasesPage() {
 					name={base.name}
 					description={base.description}
 					id={base.id}
+					workspace_id={base.workspace_id}
 				/>
 			))}
 		</div>
